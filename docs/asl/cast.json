@@ -1,0 +1,77 @@
+{
+  "model": "muse-glimmer-30b",
+  "avatara": "asl-avatar",
+  "hosts": {
+    "Babylon.js": {
+      "loader": "SceneLoader",
+      "format": "glb",
+      "fps": 24,
+      "playMs": 420
+    },
+    "Express": {
+      "api": "express-document-sdk",
+      "ops": ["createRectangle", "makeColorFill", "makeImageFill"],
+      "card": "180x220",
+      "pill": "48x18"
+    }
+  },
+  "themes": {
+    "Sumerian": {
+      "tokens": ["navy", "gold"],
+      "prompt": "sumerian clay tablet texture"
+    },
+    "Firefly": {
+      "tokens": ["violet", "gold"],
+      "prompt": "firefly generative image"
+    },
+    "Universal": {
+      "tokens": ["navy", "violet"],
+      "prompt": "universal accessible design"
+    }
+  },
+  "cast": [
+    {
+      "avatarId": "avatar-01",
+      "name": "Ava",
+      "style": "Sumerian",
+      "host": "Babylon.js",
+      "glossRange": ["G01", "G12"]
+    },
+    {
+      "avatarId": "avatar-02",
+      "name": "Ben",
+      "style": "Firefly",
+      "host": "Express",
+      "glossRange": ["G13", "G24"]
+    },
+    {
+      "avatarId": "avatar-03",
+      "name": "Cara",
+      "style": "Universal",
+      "host": "Babylon.js",
+      "glossRange": ["G25", "G36"]
+    },
+    {
+      "avatarId": "avatar-04",
+      "name": "Dev",
+      "style": "Sumerian",
+      "host": "Express",
+      "glossRange": ["G37", "G48"]
+    },
+    {
+      "avatarId": "avatar-05",
+      "name": "Eli",
+      "style": "Firefly",
+      "host": "Babylon.js",
+      "glossRange": ["G49", "G60"]
+    },
+    {
+      "avatarId": "avatar-06",
+      "name": "Finn",
+      "style": "Universal",
+      "host": "Express",
+      "glossRange": ["G61", "G72"]
+    }
+  ],
+  "mapping": "72 glosses -> 6 avatars x 12 glosses, aligned to 6 storyboard frames, play 420ms"
+}

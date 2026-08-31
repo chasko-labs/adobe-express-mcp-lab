@@ -1,0 +1,68 @@
+{
+  "kind": "vtt-sample",
+  "source": "addons/asl-concept storyboard 6-frame",
+  "frames": 6,
+  "cues": [
+    {
+      "id": "cue-01",
+      "frame": 1,
+      "start": "00:00:00.000",
+      "end": "00:00:02.520",
+      "text": "Hello, welcome to ASL Concept.",
+      "theme": "Sumerian",
+      "host": "Babylon.js",
+      "glossOn": false
+    },
+    {
+      "id": "cue-02",
+      "frame": 2,
+      "start": "00:00:02.520",
+      "end": "00:00:05.040",
+      "text": "Express panel with gloss overlay.",
+      "theme": "Firefly",
+      "host": "Express",
+      "glossOn": true
+    },
+    {
+      "id": "cue-03",
+      "frame": 3,
+      "start": "00:00:05.040",
+      "end": "00:00:07.560",
+      "text": "Universal design variations.",
+      "theme": "Universal",
+      "host": "Babylon.js",
+      "glossOn": true
+    },
+    {
+      "id": "cue-04",
+      "frame": 4,
+      "start": "00:00:07.560",
+      "end": "00:00:10.080",
+      "text": "Play cycles frames at 420ms.",
+      "theme": "Sumerian",
+      "host": "Express",
+      "glossOn": true
+    },
+    {
+      "id": "cue-05",
+      "frame": 5,
+      "start": "00:00:10.080",
+      "end": "00:00:12.600",
+      "text": "Vary pill generates new image fills.",
+      "theme": "Firefly",
+      "host": "Babylon.js",
+      "glossOn": false
+    },
+    {
+      "id": "cue-06",
+      "frame": 6,
+      "start": "00:00:12.600",
+      "end": "00:00:15.120",
+      "text": "Babylon SceneLoader to Express insertion.",
+      "theme": "Universal",
+      "host": "Express",
+      "glossOn": false
+    }
+  ],
+  "notes": "Input fixture for glimmer gloss pipeline; maps 1:1 to 6 storyboard frames, expanded to 72 glosses (12 per frame) in gloss.json"
+}
