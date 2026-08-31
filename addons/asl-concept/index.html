@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ASL Concept — Sumerian vs Firefly vs Universal</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 14px;
+        background: #0b0b1e;
+        color: #e8e6ff;
+      }
+      h1 {
+        font-size: 15px;
+        margin: 0 0 6px;
+        letter-spacing: 0.02em;
+      }
+      .sub {
+        font-size: 11px;
+        color: #a99edb;
+        margin: 0 0 12px;
+        line-height: 1.4;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        margin: 8px 0;
+        flex-wrap: wrap;
+      }
+      .pill {
+        flex: 1;
+        min-width: 84px;
+        padding: 8px 6px;
+        border-radius: 999px;
+        border: 1px solid #3a3370;
+        background: #1a1840;
+        color: #d7c7ee;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+      }
+      .pill.active {
+        background: #9060f0;
+        color: #fff;
+        border-color: #9060f0;
+      }
+      .pill.firefly.active {
+        background: #ff3366;
+        border-color: #ff3366;
+      }
+      .pill.universal.active {
+        background: #5258eb;
+        border-color: #5258eb;
+      }
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #16143a;
+        border: 1px solid #2a2860;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 11px;
+      }
+      .toggle input {
+        accent-color: #9060f0;
+      }
+      .host {
+        display: flex;
+        gap: 6px;
+      }
+      .host button {
+        flex: 1;
+        padding: 7px;
+        border-radius: 6px;
+        border: 1px solid #2a2860;
+        background: #1a1840;
+        color: #cbbfff;
+        font-size: 11px;
+        cursor: pointer;
+      }
+      .host button.active {
+        background: #d7c7ee;
+        color: #1a1040;
+      }
+      .frames {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 12px 0;
+      }
+      .frame {
+        background: #1a1040;
+        border: 1px solid #2e2a63;
+        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .frame .gloss {
+        font-size: 10px;
+        color: #9060f0;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      .frame .label {
+        font-size: 11px;
+        color: #fff;
+        margin: 4px 0;
+      }
+      .frame .badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        font-size: 8px;
+        background: #c9a23f;
+        color: #000;
+        padding: 2px 6px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+      .frame img {
+        width: 100%;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 4px;
+        background: #0f0d2a;
+        margin-top: 4px;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .actions button {
+        flex: 1;
+        padding: 10px;
+        border: 0;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .primary {
+        background: #5258eb;
+        color: #fff;
+      }
+      .ghost {
+        background: #fff;
+        color: #5258eb;
+        border: 1px solid #ddd;
+      }
+      .small {
+        font-size: 10px;
+        color: #8e86c0;
+        margin-top: 8px;
+        text-align: center;
+      }
+      pre {
+        font-size: 10px;
+        background: #111;
+        color: #0f0;
+        padding: 8px;
+        border-radius: 6px;
+        overflow: auto;
+        display: none;
+        margin-top: 10px;
+        max-height: 100px;
+      }
+      .badge-top {
+        display: inline-block;
+        font-size: 9px;
+        background: #e6e8ff;
+        color: #5258eb;
+        padding: 2px 6px;
+        border-radius: 999px;
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="badge-top"
+      >mcp grounded • manifestVersion 2 • addOnUISdk.ready • documentSandbox:
+      code.js</span
+    >
+    <h1>ASL Concept — Avatar Panel</h1>
+    <p class="sub">
+      Theme / Host / Gloss / Play — 6-frame gloss sequence for Babylon.js +
+      Firefly pipeline. Sumerian clay vs Firefly generative vs Universal
+      abstract.
+    </p>
+
+    <div class="row" id="themeRow">
+      <button class="pill active" data-theme="sumerian">Sumerian</button>
+      <button class="pill firefly" data-theme="firefly">Firefly</button>
+      <button class="pill universal" data-theme="universal">Universal</button>
+    </div>
+
+    <div class="host" id="hostRow">
+      <button class="active" data-host="babylon">Babylon.js</button>
+      <button data-host="express">Express Host</button>
+    </div>
+
+    <div class="row">
+      <label class="toggle" style="flex: 1"
+        ><input type="checkbox" id="gloss" checked /> Gloss overlay</label
+      >
+      <label class="toggle" style="flex: 1"
+        ><input type="checkbox" id="play" /> ▶ Play 6-frame preview</label
+      >
+    </div>
+
+    <div class="frames" id="frames">
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 1</div>
+        <div class="label">HELLO</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 2</div>
+        <div class="label">WORLD</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 3</div>
+        <div class="label">FIREFLY</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 4</div>
+        <div class="label">AVATAR</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 5</div>
+        <div class="label">SIGN</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 6</div>
+        <div class="label">PLAY</div>
+        <img alt="" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="render">Render 6 Cards to Canvas</button>
+      <button class="ghost" id="clear">Clear</button>
+    </div>
+    <div class="small">
+      iframe (addOnUISdk) → sandbox (editor.createRectangle / makeImageFill /
+      makeColorFill) via runtime bridge. Vary badges map to Firefly “Vary”
+      generation.
+    </div>
+    <pre id="log"></pre>
+
+    <script type="module">
+      import addOnUISdk from "https://express.adobe.com/static/add-on-sdk/sdk.js";
+      await addOnUISdk.ready;
+      const log = (m) => {
+        const el = document.getElementById("log");
+        el.style.display = "block";
+        el.textContent += m + "\n";
+        console.log(m);
+      };
+      log("addOnUISdk ready — theme: " + addOnUISdk.app.theme + " host check");
+      let theme = "sumerian",
+        host = "babylon";
+      const themeRow = document.getElementById("themeRow");
+      const hostRow = document.getElementById("hostRow");
+      themeRow.onclick = (e) => {
+        const b = e.target.closest("[data-theme]");
+        if (!b) return;
+        theme = b.dataset.theme;
+        [...themeRow.children].forEach((c) => c.classList.remove("active"));
+        b.classList.add("active");
+        document.body.dataset.theme = theme;
+        log("theme: " + theme);
+      };
+      hostRow.onclick = (e) => {
+        const b = e.target.closest("[data-host]");
+        if (!b) return;
+        host = b.dataset.host;
+        [...hostRow.children].forEach((c) => c.classList.remove("active"));
+        b.classList.add("active");
+        log("host: " + host);
+      };
+      // expose notify for sandbox
+      await addOnUISdk.instance.runtime.exposeApi({
+        notify: (m) => log("sandbox: " + m),
+      });
+
+      let playTimer = null;
+      document.getElementById("play").onchange = (e) => {
+        const on = e.target.checked;
+        const frames = document.getElementById("frames");
+        if (on) {
+          let i = 0;
+          playTimer = setInterval(() => {
+            [...frames.children].forEach(
+              (f, idx) =>
+                (f.style.outline =
+                  idx === i % 6 ? "2px solid #c9a23f" : "none"),
+            );
+            i++;
+            if (i > 18) {
+              clearInterval(playTimer);
+              e.target.checked = false;
+              [...frames.children].forEach((f) => (f.style.outline = "none"));
+            }
+          }, 420);
+        } else {
+          clearInterval(playTimer);
+          [...frames.children].forEach((f) => (f.style.outline = "none"));
+        }
+      };
+
+      document.getElementById("render").onclick = async () => {
+        try {
+          const gloss = document.getElementById("gloss").checked;
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.renderASLConcept({
+            theme,
+            host,
+            gloss,
+            width: 1440,
+            height: 400,
+          });
+          log(
+            "renderASLConcept theme=" +
+              theme +
+              " host=" +
+              host +
+              " gloss=" +
+              gloss,
+          );
+        } catch (e) {
+          log("render error: " + (e.message || e));
+        }
+      };
+      document.getElementById("clear").onclick = async () => {
+        try {
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.clearArtboard();
+          log("cleared");
+        } catch (e) {
+          log("clear: " + (e.message || e));
+        }
+      };
+      // demo Vary click — delegates to sandbox varyCard with Firefly placeholder
+      document.getElementById("frames").onclick = async (e) => {
+        const badge = e.target.closest(".badge");
+        if (!badge) return;
+        const idx = [...e.currentTarget.children].indexOf(badge.parentElement);
+        try {
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.varyCard({
+            index: idx,
+            prompt: "ASL sign variation frame " + (idx + 1),
+          });
+          log("vary frame " + (idx + 1));
+        } catch (err) {
+          log("vary err " + (err.message || err));
+        }
+      };
+    </script>
+  </body>
+</html>
