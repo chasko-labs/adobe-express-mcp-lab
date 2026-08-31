@@ -1,0 +1,594 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ASL Lab — Firefly Twin</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 14px;
+        background: #0b0b1e;
+        color: #e8e6ff;
+      }
+      h1 {
+        font-size: 15px;
+        margin: 0 0 6px;
+        letter-spacing: 0.02em;
+      }
+      .sub {
+        font-size: 11px;
+        color: #a99edb;
+        margin: 0 0 12px;
+        line-height: 1.4;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        margin: 8px 0;
+        flex-wrap: wrap;
+      }
+      .pill {
+        flex: 1;
+        min-width: 84px;
+        padding: 8px 6px;
+        border-radius: 999px;
+        border: 1px solid #3a3370;
+        background: #1a1840;
+        color: #d7c7ee;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+      }
+      .pill.active {
+        background: #9060f0;
+        color: #fff;
+        border-color: #9060f0;
+      }
+      .pill.firefly.active {
+        background: #ff3366;
+        border-color: #ff3366;
+      }
+      .pill.universal.active {
+        background: #5258eb;
+        border-color: #5258eb;
+      }
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #16143a;
+        border: 1px solid #2a2860;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 11px;
+      }
+      .toggle input {
+        accent-color: #9060f0;
+      }
+      .host {
+        display: flex;
+        gap: 6px;
+      }
+      .host button {
+        flex: 1;
+        padding: 7px;
+        border-radius: 6px;
+        border: 1px solid #2a2860;
+        background: #1a1840;
+        color: #cbbfff;
+        font-size: 11px;
+        cursor: pointer;
+      }
+      .host button.active {
+        background: #d7c7ee;
+        color: #1a1040;
+      }
+      .frames {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 12px 0;
+      }
+      .frame {
+        background: #1a1040;
+        border: 1px solid #2e2a63;
+        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .frame .gloss {
+        font-size: 10px;
+        color: #9060f0;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      .frame .label {
+        font-size: 11px;
+        color: #fff;
+        margin: 4px 0;
+      }
+      .frame .badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        font-size: 8px;
+        background: #c9a23f;
+        color: #000;
+        padding: 2px 6px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+      .frame img {
+        width: 100%;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 4px;
+        background: #0f0d2a;
+        margin-top: 4px;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .actions button {
+        flex: 1;
+        min-width: 140px;
+        padding: 10px;
+        border: 0;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .primary {
+        background: #5258eb;
+        color: #fff;
+      }
+      .fireflyBtn {
+        background: #ff3366;
+        color: #fff;
+      }
+      .fireflyBtn:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      .ghost {
+        background: #fff;
+        color: #5258eb;
+        border: 1px solid #ddd;
+      }
+      .small {
+        font-size: 10px;
+        color: #8e86c0;
+        margin-top: 8px;
+        text-align: center;
+      }
+      pre {
+        font-size: 10px;
+        background: #111;
+        color: #0f0;
+        padding: 8px;
+        border-radius: 6px;
+        overflow: auto;
+        display: none;
+        margin-top: 10px;
+        max-height: 140px;
+      }
+      .badge-top {
+        display: inline-block;
+        font-size: 9px;
+        background: #e6e8ff;
+        color: #5258eb;
+        padding: 2px 6px;
+        border-radius: 999px;
+        margin-bottom: 8px;
+      }
+      .twin-row {
+        margin-top: 10px;
+        border: 1px dashed #ff3366;
+        border-radius: 8px;
+        padding: 10px;
+        background: #1a0a1e;
+      }
+      .twin-row h3 {
+        margin: 0 0 6px;
+        font-size: 12px;
+        color: #ff8f8f;
+      }
+      .twin-row p {
+        margin: 0 0 8px;
+        font-size: 10px;
+        color: #cbbfff;
+        line-height: 1.4;
+      }
+      .twin-preview {
+        width: 100%;
+        height: 96px;
+        border-radius: 6px;
+        background: #0f0d2a;
+        object-fit: cover;
+        display: none;
+        margin-top: 8px;
+        border: 1px solid #2a2860;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="badge-top"
+      >mcp grounded • manifestVersion 2 • addOnUISdk.ready • documentSandbox:
+      code.js • Firefly Twin seed 4219</span
+    >
+    <h1>ASL Lab — Firefly Twin</h1>
+    <p class="sub">
+      Theme / Host / Gloss / Play — 6-frame gloss sequence + Firefly Twin
+      generator (styleReference: contact sheet + structureReference, seed 4219 →
+      sandbox makeImageFill).
+    </p>
+
+    <div class="row" id="themeRow">
+      <button class="pill active" data-theme="sumerian">Sumerian</button>
+      <button class="pill firefly" data-theme="firefly">Firefly</button>
+      <button class="pill universal" data-theme="universal">Universal</button>
+    </div>
+
+    <div class="host" id="hostRow">
+      <button class="active" data-host="babylon">Babylon.js</button>
+      <button data-host="express">Express Host</button>
+    </div>
+
+    <div class="row">
+      <label class="toggle" style="flex: 1"
+        ><input type="checkbox" id="gloss" checked /> Gloss overlay</label
+      >
+      <label class="toggle" style="flex: 1"
+        ><input type="checkbox" id="play" /> ▶ Play 6-frame preview</label
+      >
+    </div>
+
+    <div class="frames" id="frames">
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 1</div>
+        <div class="label">HELLO</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 2</div>
+        <div class="label">WORLD</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 3</div>
+        <div class="label">FIREFLY</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 4</div>
+        <div class="label">AVATAR</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 5</div>
+        <div class="label">SIGN</div>
+        <img alt="" />
+      </div>
+      <div class="frame">
+        <span class="badge">Vary</span>
+        <div class="gloss">FRAME 6</div>
+        <div class="label">PLAY</div>
+        <img alt="" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="render">Render 6 Cards to Canvas</button>
+      <button class="ghost" id="clear">Clear</button>
+    </div>
+
+    <!-- Firefly Twin path — iframe fetch → sandbox makeImageFill -->
+    <div class="twin-row" id="twinRow">
+      <h3>Firefly Twin — Contact Sheet → Custom Model</h3>
+      <p>
+        StyleReference:
+        <code>renders/contact-sheet/Sumerian/front.png</code> (8-view contact
+        sheet, class token <code>sumerianHost</code>) + StructureReference: hand
+        pose (42-joint rig, latrodectus-bishopi-hand.blend) • Seed
+        <code>4219</code> deterministic • Endpoint
+        <code>firefly-api.adobe.io/v2/images/generate</code> → sandbox
+        <code>makeImageFill</code>
+      </p>
+      <button
+        class="fireflyBtn"
+        id="generateFireflyTwin"
+        style="
+          width: 100%;
+          padding: 10px;
+          border: 0;
+          border-radius: 8px;
+          font-weight: 700;
+          cursor: pointer;
+          font-size: 12px;
+        "
+      >
+        Generate Firefly Twin
+      </button>
+      <img id="twinPreview" class="twin-preview" alt="twin preview" />
+      <div class="small">
+        Prior result 2: 72 PNGs 8×9 hosts captioned HOST_ACCENT + hometown →
+        datasets/&lt;host&gt;.zip • Prior result 1: 42-joint hand rig G01-G72
+      </div>
+    </div>
+
+    <div class="small">
+      iframe (addOnUISdk) → sandbox (editor.createRectangle / makeImageFill /
+      makeColorFill) via runtime bridge. Vary badges map to Firefly “Vary”
+      generation.
+    </div>
+    <pre id="log"></pre>
+
+    <script type="module">
+      import addOnUISdk from "https://express.adobe.com/static/add-on-sdk/sdk.js";
+      await addOnUISdk.ready;
+      const log = (m) => {
+        const el = document.getElementById("log");
+        el.style.display = "block";
+        el.textContent += m + "\n";
+        console.log(m);
+      };
+      log(
+        "addOnUISdk ready — theme: " +
+          addOnUISdk.app.theme +
+          " host check • Firefly Twin seed 4219",
+      );
+      let theme = "sumerian",
+        host = "babylon";
+      const themeRow = document.getElementById("themeRow");
+      const hostRow = document.getElementById("hostRow");
+      themeRow.onclick = (e) => {
+        const b = e.target.closest("[data-theme]");
+        if (!b) return;
+        theme = b.dataset.theme;
+        [...themeRow.children].forEach((c) => c.classList.remove("active"));
+        b.classList.add("active");
+        document.body.dataset.theme = theme;
+        log("theme: " + theme);
+      };
+      hostRow.onclick = (e) => {
+        const b = e.target.closest("[data-host]");
+        if (!b) return;
+        host = b.dataset.host;
+        [...hostRow.children].forEach((c) => c.classList.remove("active"));
+        b.classList.add("active");
+        log("host: " + host);
+      };
+      await addOnUISdk.instance.runtime.exposeApi({
+        notify: (m) => log("sandbox: " + m),
+      });
+
+      let playTimer = null;
+      document.getElementById("play").onchange = (e) => {
+        const on = e.target.checked;
+        const frames = document.getElementById("frames");
+        if (on) {
+          let i = 0;
+          playTimer = setInterval(() => {
+            [...frames.children].forEach(
+              (f, idx) =>
+                (f.style.outline =
+                  idx === i % 6 ? "2px solid #c9a23f" : "none"),
+            );
+            i++;
+            if (i > 18) {
+              clearInterval(playTimer);
+              e.target.checked = false;
+              [...frames.children].forEach((f) => (f.style.outline = "none"));
+            }
+          }, 420);
+        } else {
+          clearInterval(playTimer);
+          [...frames.children].forEach((f) => (f.style.outline = "none"));
+        }
+      };
+
+      document.getElementById("render").onclick = async () => {
+        try {
+          const gloss = document.getElementById("gloss").checked;
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.renderASLConcept({
+            theme,
+            host,
+            gloss,
+            width: 1440,
+            height: 400,
+          });
+          log(
+            "renderASLConcept theme=" +
+              theme +
+              " host=" +
+              host +
+              " gloss=" +
+              gloss,
+          );
+        } catch (e) {
+          log("render error: " + (e.message || e));
+        }
+      };
+      document.getElementById("clear").onclick = async () => {
+        try {
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.clearArtboard();
+          log("cleared");
+        } catch (e) {
+          log("clear: " + (e.message || e));
+        }
+      };
+      document.getElementById("frames").onclick = async (e) => {
+        const badge = e.target.closest(".badge");
+        if (!badge) return;
+        const idx = [...e.currentTarget.children].indexOf(badge.parentElement);
+        try {
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.varyCard({
+            index: idx,
+            prompt: "ASL sign variation frame " + (idx + 1),
+          });
+          log("vary frame " + (idx + 1));
+        } catch (err) {
+          log("vary err " + (err.message || err));
+        }
+      };
+
+      // === Firefly Twin: iframe fetch firefly-api.adobe.io/v2/images/generate with styleReference/contact sheet + structureReference + seed 4219 → sandbox makeImageFill ===
+      const FIREFLY_TWIN_SEED = 4219;
+      const CONTACT_SHEET_STYLE_REF =
+        "renders/contact-sheet/Sumerian/front.png";
+      const CONTACT_SHEET_STRUCTURE_REF =
+        "renders/contact-sheet/Sumerian/front.png";
+      // Also available per-host: datasets/<host>.zip (Firefly Custom Model class token sumerianHost <id> + person) and renders/captioned/<host>/
+
+      export async function fetchFireflyTwin({ promptOverride } = {}) {
+        const prompt =
+          promptOverride ||
+          `ASL avatar twin, Sumerian clay tablet texture, 42-joint hand rig, gloss HELLO, theme ${theme}, host ${host}, photorealistic sign language avatar`;
+        // Deterministic seed 4219 — pinned for twin reproducibility across styleReference + structureReference
+        const body = {
+          prompt,
+          // Firefly v2 seed contract — both singular and array for compat
+          seed: FIREFLY_TWIN_SEED,
+          seeds: [FIREFLY_TWIN_SEED],
+          numVariations: 1,
+          size: { width: 1024, height: 1024 },
+          // StyleReference: contact sheet (prior result 2: 72 PNGs 8 views x 9 hosts, captioned sumerianHost + HOST_ACCENT + hometown)
+          styleReference: {
+            source: { url: CONTACT_SHEET_STYLE_REF },
+            strength: 0.9,
+          },
+          style_reference: {
+            source: { url: CONTACT_SHEET_STYLE_REF },
+            strength: 0.9,
+          },
+          // StructureReference: pins hand pose (latrodectus-bishopi-hand.blend 42 joints, G01-G72 NLA)
+          structureReference: {
+            source: { url: CONTACT_SHEET_STRUCTURE_REF },
+            strength: 0.85,
+          },
+          structure_reference: {
+            source: { url: CONTACT_SHEET_STRUCTURE_REF },
+            strength: 0.85,
+          },
+          // Contact sheet meta for dataset-grounded checkers
+          contactSheet: CONTACT_SHEET_STYLE_REF,
+          customModel: "sumerianHost",
+          classToken: "sumerianHost <id> person",
+        };
+        log(
+          `Firefly Twin fetch → firefly-api.adobe.io/v2/images/generate seed=${FIREFLY_TWIN_SEED} styleReference=${CONTACT_SHEET_STYLE_REF} structureReference=${CONTACT_SHEET_STRUCTURE_REF}`,
+        );
+        const res = await fetch(
+          "https://firefly-api.adobe.io/v2/images/generate",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-Key": "test-api-key",
+              Authorization: "Bearer test-token",
+            },
+            body: JSON.stringify(body),
+          },
+        );
+        if (!res.ok)
+          throw new Error(
+            `Firefly generate failed ${res.status}: ${await res.text()}`,
+          );
+        const data = await res.json();
+        // Firefly returns { outputs: [{ image: { url, base64 } }] } — support both
+        const out = data.outputs?.[0] ?? data;
+        const imageUrl = out.image?.url || out.url || out.imageUrl;
+        const b64 = out.image?.base64 || out.base64 || out.image?.data;
+        let blob;
+        if (b64) {
+          const bin = atob(b64);
+          const bytes = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+          blob = new Blob([bytes], { type: "image/png" });
+        } else if (imageUrl) {
+          const imgRes = await fetch(imageUrl);
+          blob = await imgRes.blob();
+        } else {
+          throw new Error("Firefly response missing image url/base64");
+        }
+        const imageBitmap = await createImageBitmap(blob);
+        // Sandbox makeImageFill — iframe cannot touch editor directly
+        const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+        // Grounded: sandbox exposes generateFireflyTwin → editor.makeImageFill(imageBitmap)
+        if (api.generateFireflyTwin) {
+          await api.generateFireflyTwin({
+            imageBitmap,
+            seed: FIREFLY_TWIN_SEED,
+            prompt,
+          });
+        } else if (api.applyTwinImageFill) {
+          await api.applyTwinImageFill(imageBitmap);
+        } else {
+          throw new Error(
+            "sandbox missing generateFireflyTwin/applyTwinImageFill — check code.js exposeApi",
+          );
+        }
+        // Local preview (helps manual QA and tests that assert twin-preview src)
+        const preview = document.getElementById("twinPreview");
+        if (preview) {
+          preview.src = URL.createObjectURL(blob);
+          preview.style.display = "block";
+        }
+        log(
+          `Firefly Twin ok seed=${FIREFLY_TWIN_SEED} → sandbox makeImageFill`,
+        );
+        return { ok: true, seed: FIREFLY_TWIN_SEED, prompt, imageBitmap, blob };
+      }
+
+      // Expose for tests (MSW can spy on window.fetchFireflyTwin)
+      globalThis.fetchFireflyTwin = fetchFireflyTwin;
+      globalThis.FIREFLY_TWIN_SEED = FIREFLY_TWIN_SEED;
+      globalThis.CONTACT_SHEET_STYLE_REF = CONTACT_SHEET_STYLE_REF;
+
+      document.getElementById("generateFireflyTwin").onclick = async (e) => {
+        const btn = e.currentTarget;
+        btn.disabled = true;
+        const old = btn.textContent;
+        btn.textContent = "Generating Twin…";
+        try {
+          await fetchFireflyTwin();
+          btn.textContent = "Twin Generated ✓";
+          setTimeout(() => {
+            btn.textContent = old;
+          }, 1600);
+        } catch (err) {
+          log("twin error: " + (err.message || err));
+          btn.textContent = "Error — retry";
+        } finally {
+          btn.disabled = false;
+          if (btn.textContent === "Generating Twin…") btn.textContent = old;
+        }
+      };
+    </script>
+  </body>
+</html>

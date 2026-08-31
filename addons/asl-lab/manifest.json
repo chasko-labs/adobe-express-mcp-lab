@@ -1,0 +1,21 @@
+{
+  "testId": "asl-lab",
+  "name": "ASL Lab — Firefly Twin (MCP Grounded)",
+  "version": "0.1.0",
+  "manifestVersion": 2,
+  "requirements": {
+    "apps": [{ "name": "Express", "apiVersion": 1 }],
+    "supportsTouch": false
+  },
+  "entryPoints": [
+    {
+      "type": "panel",
+      "id": "asl-lab",
+      "main": "index.html",
+      "documentSandbox": "code.js",
+      "permissions": {
+        "sandbox": ["allow-popups", "allow-presentation", "allow-downloads"]
+      }
+    }
+  ]
+}
