@@ -1,0 +1,58 @@
+{
+  "comment": "ASL-DATA-02 caption workflow: HOST_ACCENT+hometown -> renders/captioned/<host>/ JSONL prompts sumerianHost <id>",
+  "nodes": {
+    "1": {
+      "class_type": "LoadImage",
+      "inputs": { "image": "contact-sheet/<host>/<view>.png" }
+    },
+    "2": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "photo of sumerianHost <id> person, <HOST_ACCENT> accent, hometown <hometown>, 8-view contact sheet",
+        "clip": ["4", 0]
+      }
+    },
+    "3": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "filename_prefix": "captioned/<host>/<view>",
+        "images": ["1", 0]
+      }
+    },
+    "4": {
+      "class_type": "CLIPLoader",
+      "inputs": { "clip_name": "clip_l.safetensors" }
+    },
+    "5": {
+      "class_type": "Captioner",
+      "inputs": {
+        "host_accent": "<HOST_ACCENT>",
+        "hometown": "<hometown>",
+        "instance_token": "sumerianHost <id>",
+        "class_token": "person"
+      }
+    }
+  },
+  "hosts": {
+    "cristine": {
+      "id": "cristine",
+      "accent": "#e0a24a",
+      "hometown": "Uruk (Warka)"
+    },
+    "fiona": { "id": "fiona", "accent": "#2f8fb0", "hometown": "Ur, Sumer" },
+    "grace": { "id": "grace", "accent": "#3fae6f", "hometown": "Sumer" },
+    "maya": { "id": "maya", "accent": "#b060c0", "hometown": "marshes" },
+    "alien": {
+      "id": "alien",
+      "accent": "#2fc8c8",
+      "hometown": "cosmic (pre-Sumer)"
+    },
+    "luke": { "id": "luke", "accent": "#4a6ec0", "hometown": "Sumer" },
+    "jay": { "id": "jay", "accent": "#d4a020", "hometown": "Sumer" },
+    "preston": { "id": "preston", "accent": "#9a5ad0", "hometown": "Sumer" },
+    "wes": { "id": "wes", "accent": "#6fae40", "hometown": "reed-marsh" }
+  },
+  "prompt_template": "photo of sumerianHost <id> person, <HOST_ACCENT> accent, hometown <hometown>, 8-view contact sheet",
+  "caption_output": "renders/captioned/<host>/caption.jsonl",
+  "dataset_output": "datasets/<host>.zip"
+}

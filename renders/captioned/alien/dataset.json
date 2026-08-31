@@ -1,0 +1,52 @@
+{
+  "host": "alien",
+  "instance_token": "sumerianHost alien",
+  "class_token": "person",
+  "resolution": "1024x1024",
+  "count": 8,
+  "prompt_template": "photo of sumerianHost <id> person, <HOST_ACCENT> accent, hometown <hometown>, 8-view contact sheet",
+  "accent": "#2fc8c8",
+  "hometown": "cosmic (pre-Sumer)",
+  "files": [
+    {
+      "image": "front_neutral.png",
+      "caption": "front_neutral.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "front_smile.png",
+      "caption": "front_smile.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "front_frown.png",
+      "caption": "front_frown.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "front_brow_raise.png",
+      "caption": "front_brow_raise.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "front_surprise.png",
+      "caption": "front_surprise.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "back_neutral.png",
+      "caption": "back_neutral.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "left_3q_neutral.png",
+      "caption": "left_3q_neutral.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    },
+    {
+      "image": "right_3q_neutral.png",
+      "caption": "right_3q_neutral.txt",
+      "prompt": "photo of sumerianHost alien person, #2fc8c8 accent, hometown cosmic (pre-Sumer), 8-view contact sheet"
+    }
+  ]
+}
