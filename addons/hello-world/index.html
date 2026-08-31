@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello World — Adobe Express MCP Lab</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body { margin: 0; padding: 16px; background: #fafafa; color: #1a1a1a; }
+    h1 { font-size: 16px; margin: 0 0 8px; }
+    p { font-size: 12px; color: #555; margin: 0 0 12px; line-height: 1.4; }
+    button { width: 100%; padding: 10px; border: 0; border-radius: 6px; background: #5258eb; color: #fff; font-weight: 600; cursor: pointer; }
+    button:active { background: #3d42d1; }
+    button + button { margin-top: 8px; background: #fff; color: #5258eb; border: 1px solid #ddd; }
+    pre { font-size: 10px; background: #111; color: #0f0; padding: 8px; border-radius: 6px; overflow: auto; margin-top: 12px; display: none; }
+    .badge { display: inline-block; font-size: 10px; background: #e6e8ff; color: #5258eb; padding: 2px 6px; border-radius: 999px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <span class="badge">mcp grounded • stdio • no auth</span>
+  <h1>Hello World</h1>
+  <p>iframe (UI SDK) triggers → document sandbox draws via <code>express-document-sdk</code>. Generated with types from <code>@adobe/express-developer-mcp</code>.</p>
+  <button id="draw">Draw 200×150 rectangle</button>
+  <button id="clear">Clear artboard (if supported)</button>
+  <pre id="log"></pre>
+  <script type="module">
+    import addOnUISdk from "https://express.adobe.com/static/add-on-sdk/sdk.js";
+    await addOnUISdk.ready;
+    const log = (m) => { const el = document.getElementById('log'); el.style.display = 'block'; el.textContent += m + '\n'; console.log(m); };
+    log('addOnUISdk ready — theme: ' + addOnUISdk.app.theme);
+    // expose sandbox bridge — iframe proxies, sandbox mutates
+    const sandboxProxy = await addOnUISdk.instance.runtime.exposeApi({
+      notify: (msg) => log('sandbox: ' + msg)
+    });
+    document.getElementById('draw').onclick = async () => {
+      try {
+        // call into document sandbox via runtime bridge
+        // code.js exposes createRectangle; iframe invokes it
+        const api = await addOnUISdk.instance.runtime.getApi('sandbox');
+        await api.createRectangle({ width: 200, height: 150, x: 100, y: 20, fill: [0.32, 0.52, 0.92, 1] });
+        log('invoked sandbox.createRectangle');
+      } catch (e) { log('draw error: ' + (e.message || e)); }
+    };
+    document.getElementById('clear').onclick = async () => {
+      try { const api = await addOnUISdk.instance.runtime.getApi('sandbox'); await api.clearArtboard(); log('cleared'); }
+      catch (e) { log('clear: ' + (e.message || e)); }
+    };
+  </script>
+</body>
+</html>
