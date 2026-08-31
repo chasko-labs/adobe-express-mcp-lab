@@ -1,0 +1,86 @@
+{{ define "main" }}
+{{/* ASL Demo — Hugo sibling to firefly-tic-tac-toe (ASL-ROUTE-01/03). No s3-prefix-registry entry (ASL-ROUTE-04). Sibling of layouts/page/firefly-tic-tac-toe.html. Refs prior 1-7. */}}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+
+<style>
+.asl-demo{--cdn-navy:#00002a;--cdn-purple-deep:#30006a;--cdn-purple:#5a1f8a;--cdn-violet:#9060f0;--cdn-lavender:#d7c7ee;--cdn-white:#f0f0f0;--cdn-gold:#c9a23f;--cdn-orange:#ff9900;max-width:1120px;margin:0 auto;padding:24px 16px 48px;color:var(--cdn-white);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.asl-demo a{color:var(--cdn-lavender)}
+.asl-demo a:hover{color:var(--cdn-white)}
+.ad-hero{position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(215,199,238,.18);background:linear-gradient(120deg,var(--cdn-navy) 0%,var(--cdn-purple-deep) 100%);padding:28px 24px 22px}
+.ad-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(215,199,238,0) 0%,rgba(215,199,238,.06) 50%,rgba(215,199,238,0) 100%);pointer-events:none}
+.ad-hero__safe{position:absolute;left:50%;top:0;transform:translateX(-50%);width:min(1200px,100%);height:100%;border:1px dashed rgba(255,255,255,.06);pointer-events:none}
+.ad-kicker{font:500 11px/1 JetBrains Mono,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--cdn-lavender);margin:0 0 10px}
+.ad-title{font:700 38px/1 Cinzel,Georgia,serif;letter-spacing:.02em;color:var(--cdn-white);margin:0}
+.ad-sub{font:500 13px/1.5 JetBrains Mono,monospace;color:var(--cdn-lavender);margin:8px 0 0}
+.ad-cta{display:inline-block;margin-top:14px;background:var(--cdn-orange);color:#1a1a1a;font:700 12px/1 system-ui,sans-serif;padding:10px 18px;border-radius:999px;text-decoration:none}
+.ad-cta:hover{filter:brightness(1.05)}
+.ad-note{margin:10px 0 0;font:500 11px/1.4 JetBrains Mono,monospace;color:rgba(215,199,238,.85)}
+.ad-frames{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+@media(max-width:760px){.ad-frames{grid-template-columns:repeat(2,1fr)}.ad-title{font-size:28px}}
+@media(max-width:480px){.ad-frames{grid-template-columns:1fr}}
+.ad-frame{border:1px solid rgba(215,199,238,.14);border-radius:10px;padding:12px 12px 10px;background:rgba(255,255,255,.04)}
+.ad-frame__head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ad-frame__num{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;font:700 12px/1 system-ui;background:var(--cdn-violet);color:#fff;flex:0 0 26px}
+.ad-frame h3{font:700 13px/1.2 system-ui;margin:0;color:var(--cdn-white)}
+.ad-frame p{font:400 12px/1.5 system-ui;color:rgba(240,240,240,.82);margin:6px 0 0}
+.ad-badge{display:inline-block;margin-top:8px;font:600 10px/1 JetBrains Mono,monospace;letter-spacing:.06em;padding:4px 7px;border-radius:999px;border:1px solid rgba(215,199,238,.18);color:var(--cdn-lavender);background:rgba(144,96,240,.10)}
+.ad-badge--vary{border-color:rgba(255,153,0,.28);color:#ffd28a;background:rgba(255,153,0,.10)}
+.ad-badge--gold{border-color:rgba(201,162,63,.35);color:var(--cdn-gold);background:rgba(201,162,63,.10)}
+.ad-pipeline{margin-top:22px;border:1px solid rgba(215,199,238,.14);border-radius:10px;padding:16px;background:rgba(0,0,42,.22)}
+.ad-pipeline h2{font:700 15px/1.2 system-ui;margin:0 0 8px;color:var(--cdn-white)}
+.ad-pipeline code{font:500 11px/1.4 JetBrains Mono,monospace;color:var(--cdn-lavender)}
+.ad-refs{margin-top:22px;font:400 13px/1.6 system-ui;color:rgba(240,240,240,.85)}
+.ad-refs ul{margin:6px 0 0 18px}
+.ad-hr{border:none;border-top:1px solid rgba(215,199,238,.12);margin:22px 0}
+.ad-prose{margin-top:18px;font:400 14px/1.7 system-ui;color:rgba(240,240,240,.92)}
+.ad-prose code{font:500 12px/1.4 JetBrains Mono,monospace;color:var(--cdn-lavender)}
+</style>
+
+<div class="asl-demo" aria-label="ASL Demo — Firefly Tic-Tac-Toe">
+  <a class="skip-link" href="#asl-demo-board" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to demo</a>
+  <section class="ad-hero" aria-label="ASL Demo hero">
+    <div class="ad-hero__safe" aria-hidden="true"></div>
+    <p class="ad-kicker">bryanchasko.com / firefly-tic-tac-toe / asl-demo — sibling to /firefly-tic-tac-toe (no s3-prefix-registry; ASL-ROUTE-04)</p>
+    <h1 class="ad-title">ASL Demo</h1>
+    <p class="ad-sub">Firefly Tic-Tac-Toe · 6-frame gloss pipeline · Sumerian / Firefly / Universal × Babylon.js / Express · 72 glosses 420ms</p>
+    <a class="ad-cta" href="#asl-demo-board">Preview 6 frames ↓</a>
+    <p class="ad-note">Hugo sibling page — <code>content/firefly-tic-tac-toe/asl-demo.md</code> + <code>layouts/page/asl-demo.html</code> (like <code>firefly-tic-tac-toe.html</code>). 2D canvas/DOM only — Babylon + Firefly Twin run in <code>addons/asl-concept</code> + <code>addons/asl-lab</code> (see refs). Living guide → <a href="/firefly-tic-tac-toe/asl-guide/">/asl-guide</a> (<code>docs/asl-concept-guide/README.md</code>, ever-improving, 232-line baseline, 6 PNGs 1440×400).</p>
+    <div id="asl-demo-board" class="ad-frames" role="list" aria-label="6-frame storyboard (ASL gloss demo)">
+      <article class="ad-frame" role="listitem"><div class="ad-frame__head"><span class="ad-frame__num">1</span><h3>Sumerian · Babylon · Gloss ON</h3></div><p>HELLO — clay <span class="ad-badge ad-badge--gold">Vary</span> · host bar <code>#9060f0</code> Babylon</p><span class="ad-badge">G01–G12 · 420ms · nav #00002a→#30006a</span></article>
+      <article class="ad-frame" role="listitem"><div class="ad-frame__head"><span class="ad-frame__num">2</span><h3>Firefly · Babylon · Gloss OFF</h3></div><p>WORLD — magenta <span class="ad-badge ad-badge--vary">Vary</span> · clean card</p><span class="ad-badge">G13–G24 · contact-sheet 72 PNGs</span></article>
+      <article class="ad-frame" role="listitem"><div class="ad-frame__head"><span class="ad-frame__num">3</span><h3>Universal · Babylon · Gloss ON + Play ▶</h3></div><p>FIREFLY — indigo <code>#5258eb</code> · play outline <code>#c9a23f</code> 420ms</p><span class="ad-badge">G25–G36 · mixer ASL_HANDS 74–115</span></article>
+      <article class="ad-frame" role="listitem"><div class="ad-frame__head"><span class="ad-frame__num">4</span><h3>Sumerian · Express · Gloss OFF</h3></div><p>AVATAR — Sumerian on Express <code>#30006a</code> · no gloss</p><span class="ad-badge">G37–G48 · makeImageFill 180×220</span></article>
+      <article class="ad-frame" role="listitem"><div class="ad-frame__head"><span class="ad-frame__num">5</span><h3>Firefly · Express · Gloss ON</h3></div><p>SIGN — Firefly/Express · Vary prominent</p><span class="ad-badge">G49–G60 · datasets &lt;host&gt;.zip</span></article>
+      <article class="ad-frame" role="listitem"><div class="ad-frame__head"><span class="ad-frame__num">6</span><h3>Universal · Express · Gloss OFF + Play ▶</h3></div><p>PLAY — Universal/Express end of sequence</p><span class="ad-badge">G61–G72 · twin seed 4219</span></article>
+    </div>
+  </section>
+
+  <div class="ad-pipeline" aria-label="Pipeline">
+    <h2>Pipeline — gloss → Firefly → Babylon → Express → Hugo</h2>
+    <code>Gloss G01–G72 (muse-glimmer-30b ctx4096, gpu_lock 127.0.0.1:8181) → Firefly Vary / Custom Model (styleReference+structureReference, seed 4219, contact-sheet Sumerian/front.png) → Blender hand rig 42 joints HOST_SCORECARD 74–115 → Babylon SceneLoader / Express documentSandbox (editor.createRectangle + makeImageFill 1024×1024) → Hugo 2D preview (this page, no Babylon bundle)</code>
+    <p class="ad-note" style="margin-top:10px">Tokens: <code>--cdn-navy #00002a</code> <code>--cdn-purple-deep #30006a</code> <code>--cdn-violet #9060f0</code> <code>--cdn-gold #c9a23f</code> · gradient <code>linear-gradient(120deg, #00002a 0%, #30006a 100%)</code> + dust <code>rgba(215,199,238,.06)</code> · safe <code>1200×400</code> center — ASL-STYLE-01/ADDON-04 · Prior 1 asl-concept (232 lines) · Prior 2 glimmer · Prior 3 rig · Prior 4 contact · Prior 5 mixer <code>[74,115]</code> <code>[18,26]</code> <code>[44,58]</code> · Prior 6 asl-lab gold <code>rgb(201,162,63)</code> · Prior 7 twin <code>firefly-api.adobe.io/v2/images/generate</code></p>
+  </div>
+
+  <div class="ad-prose">
+    {{ .Content }}
+  </div>
+
+  <hr class="ad-hr" />
+  <section class="ad-refs" aria-label="Refs">
+    <strong>All prior results — cited (ASL-BUILD-03)</strong>
+    <ul>
+      <li><strong>1 asl-concept</strong> — <code>addons/asl-concept/</code> manifestVersion 2 panel <code>asl-concept</code> <code>documentSandbox:code.js</code>, <code>index.html</code> <code>https://express.adobe.com/static/add-on-sdk/sdk.js</code> <code>addOnUISdk.ready</code> theme Sumerian/Firefly/Universal + host Babylon.js/Express + gloss/play 6 frames 420ms + <code>runtime.exposeApi</code>/<code>getApi('sandbox')</code>, <code>code.js</code> <code>import {editor} from "express-document-sdk"</code> <code>editor.createRectangle</code> <code>makeColorFill</code> <code>makeImageFill</code> <code>insertionParent.children.append</code> 6 cards 180×220 pill 48×18 gold <code>#c9a23f</code>, <code>mcp/mcp.json</code> <code>npx -y @adobe/express-developer-mcp@latest --yes</code> stdio</li>
+      <li><strong>2 glimmer</strong> — <code>http://127.0.0.1:8181/v1/chat/completions</code> <code>muse-glimmer-30b ctx4096</code> Valkey <code>gpu_lock</code> (<code>SET gpu_lock "glimmer: …"</code> → 503 contended → <code>DEL</code> idle), <code>docs/asl/gloss.json</code> 72 G01–G72 12/frame + <code>docs/asl/cast.json</code> 6 Ava/Ben/Cara/Dev/Eli/Finn + <code>docs/asl/fixtures/vtt-sample.json</code> 6 cues + <code>docs/asl/prompts/gloss.md</code></li>
+      <li><strong>3 blender</strong> — <code>blender-projects/latrodectus-bishopi-hand.blend</code> fork, 42 joints <code>HOST_SCORECARD</code> 74–115, <code>blender-projects/asl-actions.blend</code> 72 NLA G01–G72 420ms, <code>fixtures/asl/&lt;gloss&gt;.glb</code> 72 via <code>scripts/export-asl-glb.py</code> <code>KHR_animation_pointer</code></li>
+      <li><strong>4 contact</strong> — <code>scripts/blender-contact-sheet.sh</code> <code>blender -b …</code> 72 PNGs, <code>comfy-workflows/workflow-api.json</code> <code>sumerianHost &lt;id&gt; person</code>, <code>datasets/&lt;host&gt;.zip</code> 9 zips 8 PNG+TXT 1024px</li>
+      <li><strong>5 mixer</strong> — <code>assets/sumerian-squares/src/animation-mixer.ts</code> <code>ASL_HANDS_RANGE [74,115] BROWS_RANGE [18,26] LIPSYNC_JAW_RANGE [44,58] MIXER_LERP 0.12 MIXER_FPS 60</code> mask <code>ASL hands+brows &gt; lipsync jaw &gt; emote</code></li>
+      <li><strong>6 asl-lab</strong> — <code>addons/asl-lab/</code> V2 panel <code>asl-lab</code> 4 controls (<code>data-theme×3</code> <code>data-host×2</code> <code>#gloss</code> <code>#play</code> 420ms <code>rgb(201,162,63)=#c9a23f</code>) <code>editor.createRectangle 10×</code> <code>makeImageFill 8×</code>, <code>generateFireflyTwin</code> seed 4219</li>
+      <li><strong>7 twin</strong> — Firefly Twin <code>fetch("https://firefly-api.adobe.io/v2/images/generate", POST)</code> <code>seed:4219</code> <code>seeds:[4219]</code> <code>styleReference</code>/<code>structureReference</code> <code>renders/contact-sheet/Sumerian/front.png</code> + 42-joint G01–G72 → Blob→<code>createImageBitmap</code>→<code>api.generateFireflyTwin({imageBitmap,seed:4219})</code> + MSW <code>src/mocks/handlers.js</code> stub 1×1</li>
+      <li>Spec: <a href="/spec/asl/spec.md">spec/asl/spec.md</a> (ASL-*) · Doc: <a href="/docs/firefly-tic-tac-toe/asl.md">docs/firefly-tic-tac-toe/asl.md</a> · Guide: <a href="/firefly-tic-tac-toe/asl-guide/">/firefly-tic-tac-toe/asl-guide/</a> (<code>docs/asl-concept-guide/README.md</code> ever-improving) · Lab: <a href="https://github.com/chasko-labs/adobe-express-mcp-lab">adobe-express-mcp-lab</a></li>
+      <li>Sibling pattern: <a href="/firefly-tic-tac-toe/">/firefly-tic-tac-toe/</a> (<code>content/firefly-tic-tac-toe/index.md</code> + <code>layouts/page/firefly-tic-tac-toe.html</code>) + <a href="/sumerian-squares/">/sumerian-squares/</a> · <code>s3-prefix-registry.json</code> sibling prefixes <code>mom/ listen/ bench/ design/ chat/ news/ aws/</code> — no new entry (ASL-ROUTE-04) · <code>buildspecs/buildspec-deploy.yml</code> two-pass sync CloudFront <code>E2E9BSL5RVN6DI</code></li>
+    </ul>
+  </section>
+</div>
+{{ end }}
