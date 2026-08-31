@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+  <rect width="900" height="360" fill="#fafafa" rx="12"/>
+  <style>
+    .h{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .step{fill:#fff;stroke:#5258eb;stroke-width:1.4;rx:10}
+    .stepNum{fill:#5258eb;rx:12}
+    .num{font-family:system-ui,sans-serif;font-size:12px;font-weight:800;fill:#fff;text-anchor:middle}
+    .label{font-family:system-ui,sans-serif;font-size:10px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .sub{font-family:system-ui,sans-serif;font-size:8px;fill:#444;text-anchor:middle}
+    .code{font-family:ui-monospace,monospace;font-size:6.5px;fill:#1a1a1a;text-anchor:middle}
+    .arrow{stroke:#5258eb;stroke-width:1.6;fill:none;marker-end:url(#ah)}
+    .shot{fill:#fff;stroke:#bbb;stroke-width:1;rx:8}
+    .shotBar{fill:#eee;rx:8}
+  </style>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5258eb"/></marker></defs>
+  <text x="450" y="24" class="h">Hello-World from problem to solve — 5 steps, 5 minutes, screenshots at each step</text>
+  <!-- steps -->
+  <!-- 1 -->
+  <rect x="20" y="45" width="160" height="200" class="step"/>
+  <circle cx="100" cy="65" r="14" class="stepNum"/><text x="100" y="70" class="num">1</text>
+  <text x="100" y="90" class="label">Problem</text>
+  <text x="100" y="103" class="sub">You need a branded</text>
+  <text x="100" y="114" class="sub">button inside Express</text>
+  <!-- mock screenshot 1: problem statement -->
+  <rect x="30" y="125" width="140" height="70" class="shot"/>
+  <rect x="30" y="125" width="140" height="14" class="shotBar"/><text x="100" y="134" text-anchor="middle" font-size="7" font-family="system-ui" fill="#777">user request</text>
+  <text x="100" y="152" text-anchor="middle" font-size="7" font-family="system-ui" fill="#1a1a1a">“Draw my logo</text>
+  <text x="100" y="163" text-anchor="middle" font-size="7" font-family="system-ui" fill="#1a1a1a">rect 200×150</text>
+  <text x="100" y="174" text-anchor="middle" font-size="7" font-family="system-ui" fill="#1a1a1a">brand blue”</text>
+  <text x="100" y="188" text-anchor="middle" font-size="6" font-family="system-ui" fill="#888">community builder</text>
+  <text x="100" y="210" class="sub">Challenge thrown</text>
+  <text x="100" y="222" class="sub">out — not solved</text>
+  <!-- 2 -->
+  <rect x="195" y="45" width="160" height="200" class="step"/>
+  <circle cx="275" cy="65" r="14" class="stepNum"/><text x="275" y="70" class="num">2</text>
+  <text x="275" y="90" class="label">Ask MCP</text>
+  <text x="275" y="103" class="sub">LLM with MCP</text>
+  <text x="275" y="114" class="sub">grounded tools</text>
+  <rect x="205" y="125" width="140" height="70" class="shot"/>
+  <rect x="205" y="125" width="140" height="14" class="shotBar"/><text x="275" y="134" text-anchor="middle" font-size="6" font-family="system-ui" fill="#555">Cursor / Claude — MCP connected</text>
+  <text x="275" y="152" class="code">› using adobe mcp,</text>
+  <text x="275" y="162" class="code">  show manifestV2</text>
+  <text x="275" y="172" class="code">✓ editor.createRectangle</text>
+  <text x="275" y="182" class="code">✓ makeColorFill</text>
+  <text x="275" y="193" text-anchor="middle" font-size="6" font-family="system-ui" fill="#1a8a1a">semantic search ✓</text>
+  <text x="275" y="210" class="sub">No hallucination</text>
+  <text x="275" y="222" class="sub">real types returned</text>
+  <!-- 3 -->
+  <rect x="370" y="45" width="160" height="200" class="step"/>
+  <circle cx="450" cy="65" r="14" class="stepNum"/><text x="450" y="70" class="num">3</text>
+  <text x="450" y="90" class="label">Generate</text>
+  <text x="450" y="103" class="sub">Correct files</text>
+  <text x="450" y="114" class="sub">first time</text>
+  <rect x="380" y="125" width="140" height="70" class="shot"/>
+  <rect x="380" y="125" width="140" height="14" class="shotBar"/><text x="450" y="134" text-anchor="middle" font-size="6" font-family="system-ui" fill="#555">addons/hello-world/</text>
+  <text x="450" y="150" class="code">manifest.json  ✓ V2</text>
+  <text x="450" y="161" class="code">index.html     ✓ SDK CDN</text>
+  <text x="450" y="172" class="code">code.js        ✓ editor</text>
+  <text x="450" y="185" text-anchor="middle" font-size="6" font-family="system-ui" fill="#1a8a1a">grounded — 132 lines</text>
+  <text x="450" y="210" class="sub">Copy-paste ready</text>
+  <text x="450" y="222" class="sub">verified pattern</text>
+  <!-- 4 -->
+  <rect x="545" y="45" width="160" height="200" class="step"/>
+  <circle cx="625" cy="65" r="14" class="stepNum"/><text x="625" y="70" class="num">4</text>
+  <text x="625" y="90" class="label">Sideload</text>
+  <text x="625" y="103" class="sub">Zip → Console</text>
+  <text x="625" y="114" class="sub">→ Express</text>
+  <rect x="555" y="125" width="140" height="70" class="shot"/>
+  <rect x="555" y="125" width="140" height="14" class="shotBar"/><text x="625" y="134" text-anchor="middle" font-size="6" font-family="system-ui" fill="#555">developer.adobe.com/console</text>
+  <text x="625" y="152" class="code">zip manifest +</text>
+  <text x="625" y="162" class="code">html + js</text>
+  <text x="625" y="175" text-anchor="middle" font-size="7" font-family="system-ui" fill="#1a1a1a">Preview in</text>
+  <text x="625" y="187" text-anchor="middle" font-size="7" font-family="system-ui" fill="#5258eb">Express ▸</text>
+  <text x="625" y="210" class="sub">No backend needed</text>
+  <text x="625" y="222" class="sub">free sideload</text>
+  <!-- 5 -->
+  <rect x="720" y="45" width="160" height="200" class="step"/>
+  <circle cx="800" cy="65" r="14" class="stepNum"/><text x="800" y="70" class="num">5</text>
+  <text x="800" y="90" class="label">Solve</text>
+  <text x="800" y="103" class="sub">Click → Draw</text>
+  <text x="800" y="114" class="sub">in canvas</text>
+  <rect x="730" y="125" width="140" height="70" class="shot"/>
+  <rect x="730" y="125" width="140" height="14" class="shotBar"/><text x="800" y="134" text-anchor="middle" font-size="6" font-family="system-ui" fill="#555">Express editor — Hello World panel</text>
+  <rect x="740" y="145" width="120" height="22" fill="#5258eb" rx="6"/><text x="800" y="159" text-anchor="middle" font-size="7" font-family="system-ui" fill="#fff" font-weight="700">Draw 200×150 rectangle</text>
+  <rect x="750" y="172" width="100" height="16" fill="#e0f0ff" stroke="#7ab0ff" rx="4"/><text x="800" y="182" text-anchor="middle" font-size="6" font-family="system-ui" fill="#225">▭ brand blue rect ✓</text>
+  <text x="800" y="210" class="sub">insertionParent</text>
+  <text x="800" y="222" class="sub">.append(rect) ✓</text>
+  <!-- arrows -->
+  <path d="M180 145 H195" class="arrow"/><path d="M355 145 H370" class="arrow"/><path d="M530 145 H545" class="arrow"/><path d="M705 145 H720" class="arrow"/>
+  <!-- bottom -->
+  <rect x="20" y="265" width="860" height="75" fill="#eef0ff" stroke="#c5c9ff" rx="10"/>
+  <text x="450" y="285" text-anchor="middle" font-family="system-ui" font-size="10" font-weight="700" fill="#1a1a1a">The screenshot you see in step 5 is your proof — your add-on panel inside Express, drawing to the real canvas via the sandbox. No hallucinated API.</text>
+  <text x="450" y="302" text-anchor="middle" font-family="system-ui" font-size="8" fill="#444">Without MCP: 2h debugging invented APIs. With MCP: 5 min from problem to working zip. Challenge thrown → challenge solved in this repo.</text>
+  <text x="450" y="320" text-anchor="middle" font-family="system-ui" font-size="8" fill="#5258eb">Try it: github.com/chasko-labs/adobe-express-mcp-lab → addons/hello-world/ → zip → Console → Preview. Copy, recolor, ship.</text>
+</svg>

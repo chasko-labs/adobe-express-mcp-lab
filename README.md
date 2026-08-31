@@ -16,15 +16,19 @@ flowchart LR
 ## table of contents
 
 1. [what this lab is](#what-this-lab-is)
-2. [quick start — 30 seconds](#quick-start--30-seconds)
-3. [guided tour — read in order](#guided-tour--read-in-order)
-4. [visual map](#visual-map)
-5. [version matrix](#version-matrix)
-6. [settings matrix — where mcp.json lives](#settings-matrix--where-mcpjson-lives)
-7. [hello-world — proof it works](#hello-world--proof-it-works)
-8. [repo layout](#repo-layout)
-9. [key people and sites](#key-people-and-sites)
-10. [contributing and learnings](#contributing-and-learnings)
+2. [what is adobe express?](#what-is-adobe-express)
+3. [what you can build as a community builder](#what-you-can-build-today-as-a-community-builder)
+4. [what the mcp unlocks](#what-the-mcp-unlocks-and-why-without-it-you-fail)
+5. [hello-world — challenge → solve (screenshots)](#hello-world--from-challenge-thrown-to-challenge-solved-with-screenshots)
+6. [quick start — 30 seconds](#quick-start--30-seconds)
+7. [guided tour — read in order](#guided-tour--read-in-order)
+8. [visual map](#visual-map)
+9. [version matrix](#version-matrix)
+10. [settings matrix — where mcp.json lives](#settings-matrix--where-mcpjson-lives)
+11. [hello-world — proof it works](#hello-world--proof-it-works)
+12. [repo layout](#repo-layout)
+13. [key people and sites](#key-people-and-sites)
+14. [contributing and learnings](#contributing-and-learnings)
 
 ## what this lab is
 
@@ -32,6 +36,100 @@ flowchart LR
 - **read-only, no auth, stdio** — package `@adobe/express-developer-mcp@1.0.0` exposes semantic search + typescript types so the llm stops inventing `adobe.addOn.createShape`.
 - **heraldstack-aware** — bridge `mcp/adobe-express-bridge.sh` = `exec npx -y @adobe/express-developer-mcp@latest --yes`, registry entry `adobe-express-developer` (shannon + haunting, `status: active`, `env_required: []`).
 - **deferred:** rtdcp cdp beta data plane (needs sandbox pii review), photoshop/animate/firefly mcps beyond landscape comparison. see [docs/dispatch-plan.md](docs/dispatch-plan.md).
+
+## what is adobe express?
+
+![What is Adobe Express — editor, canvas, add-on panel](docs/assets/express-overview.svg)
+
+adobe express is adobe's browser-native design platform — think canva, but with adobe dna. it runs entirely in the browser (and desktop wrapper) at `express.adobe.com`. non-designers and pros ship social posts, flyers, presentations, videos, brand kits, and generative media in minutes.
+
+- **canvas:** drag, resize, animate — photos, text, shapes, video. no photoshop learning curve.
+- **templates + stock + firefly:** 100m+ templates, adobe stock, and firefly generative ai (text-to-image, generative fill) built in.
+- **free + premium:** free tier covers most creation; premium unlocks brand kits, premium templates, and background removal.
+
+as a developer, the key fact: express is extensible **only** via add-ons (this lab) — static panels that live inside the editor, not external automations. that is where community builders plug in.
+
+## what you can build today as a community builder
+
+you do not need a backend or devops. an add-on is `manifest.json + index.html + code.js` — a panel that users install in one click from `express.adobe.com/add-ons`. today (2026) the model supports:
+
+| what                   | example community add-on                                                                                       |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **brand tools**        | one-click brand palette → draws branded rectangles, text, logos via `editor.createRectangle` + `makeColorFill` |
+| **data-driven design** | pull airtable/notion/google sheets → generate 10 flyers at once                                                |
+| **ai workflows**       | call openai/claude/stability from the iframe (full fetch) → proxy result to sandbox → draw                     |
+| **content packs**      | curated sticker/shape libraries, icon sets, localized templates                                                |
+| **utility**            | bulk resize, QR code, background remover wrapper                                                               |
+
+**distribution:** free to author and list. submit zip via https://developer.adobe.com/console → automated manifest checks + human review (days, not weeks) → live on the express marketplace, auto-updated to users. no server to run — your iframe is served from adobe's cdn. Fund for Design grants exist for standout ideas (see [docs/ecosystem.md](docs/ecosystem.md) pricing notes).
+
+**limits today:** manifestVersion 2, single `panel` entry point, `requirements.apps: [{name: "Express", apiVersion: 1}]` (express-only, no photoshop/illustrator), no arbitrary filesystem, no native c++. see [docs/ecosystem.md#7](docs/ecosystem.md) for cep/uxp vs express trade-offs.
+
+## what the mcp unlocks (and why without it you fail)
+
+![Challenge → Solve: without MCP you hallucinate, with MCP you ship](docs/assets/challenge-solve.svg)
+
+```mermaid
+flowchart TB
+  Challenge["Challenge: branded button that draws 200×150 rect at 100,20"]
+  Challenge --> Without["Without MCP: adobe.addOn.createShape — invented, fails sideload"]
+  Challenge --> With["With MCP: import { editor } from 'express-document-sdk' — real type"]
+  With --> Grounded["Grounded generation: manifestVersion 2 + documentSandbox: code.js + bridge"]
+```
+
+without the mcp, every llm hallucinates. ask `build me an express add-on` and you get:
+
+- `adobe.addOn.createShape({type: "rect"})` — does not exist
+- `app.document.addRectangle(200,150)` — invented, from photoshop
+- `manifest: { "apiVersion": 2 }` — wrong key, sideload rejects
+
+you lose 2 hours debugging an api that never existed, defending the llm's fiction.
+
+with `@adobe/express-developer-mcp@1.0.0` (stdio, no auth, 197kB), the llm has tools for:
+
+- **semantic search** over https://developer.adobe.com/express/add-ons/docs — finds the real snippet
+- **typescript types** from `@adobe/ccweb-add-on-sdk-types@1.40.0` — `editor.createRectangle`, `editor.context.insertionParent`, `editor.makeColorFill`
+- **manifest schema grounding** — `manifestVersion: 2`, `documentSandbox: "code.js"`, permissions `sandbox` + `oauth`
+
+result: the code in [addons/hello-world/](addons/hello-world/) is correct first try. see the red vs green panel above — this lab exists so you never debug a hallucinated api again.
+
+full truth in [docs/mcp-technical.md](docs/mcp-technical.md) (versions, sha512, transport).
+
+## hello-world — from challenge thrown to challenge solved (with screenshots)
+
+![Hello-World 5-step flow with screenshots at each step](docs/assets/hello-world-flow.svg)
+
+> **challenge thrown:** _"as a community builder, i need a button inside express that drops my branded 200×150 rectangle at 100,20 in one click — no user should pick color or size."_
+
+> **challenge solved:** the 5 screenshots above are the proof. walk them:
+
+**1. problem** — user request: branded rect, fixed size/position. not solved yet.
+
+**2. ask mcp** — in cursor/claude with `adobe-express-developer` connected, prompt:
+
+```text
+using the adobe express mcp, show me manifestVersion 2 and the document sandbox
+pattern to append a rectangle at 100,20. generate the 3 files.
+```
+
+mcp returns: `editor.createRectangle`, `makeColorFill`, `insertionParent.children.append`, plus `https://express.adobe.com/static/add-on-sdk/sdk.js` + `addOnUISdk.ready` + bridge `exposeApi/getApi`. no hallucination.
+
+**3. generate** — llm writes [addons/hello-world/manifest.json](addons/hello-world/manifest.json), [index.html](addons/hello-world/index.html), [code.js](addons/hello-world/code.js) — 132 lines grounded. copy-paste ready. see the `editor` import in code.js — that is the real api (verify in [docs/ecosystem.md](docs/ecosystem.md) §4).
+
+**4. sideload** — zip the three files → upload at https://developer.adobe.com/console → preview in express (no backend, free). takes 30 seconds.
+
+**5. solve** — in express: open any document → add-ons panel → _hello world_ → click **draw 200×150 rectangle** → blue rect appears at `100,20` via `insertionParent.children.append(rect)`. screenshot 5 is that panel + canvas. click **clear** to wipe. challenge solved.
+
+```bash
+cd addons/hello-world && zip hello-world.zip manifest.json index.html code.js
+# console → preview → express → add-ons → hello world → draw
+```
+
+**your turn:** fork this repo, recolor `fill: [0.32, 0.52, 0.92, 1]` to your brand, bump `version` in manifest.json, re-zip, resubmit. you now own distribution to millions from one static panel. the mcp made it 5 minutes instead of 2 hours.
+
+![iframe vs sandbox — where fetch vs editor live](docs/assets/sandbox-iframe-flow.svg)
+
+details: [docs/ecosystem.md](docs/ecosystem.md) (iframe full browser apis vs sandbox synchronous thread), [spec/wiring.md](spec/wiring.md) (how the bridge is wired per heraldstack).
 
 ## quick start — 30 seconds
 

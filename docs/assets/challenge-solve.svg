@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+  <rect width="900" height="420" fill="#fafafa" rx="12"/>
+  <style>
+    .h{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .box{fill:#fff;stroke:#ddd;stroke-width:1.2;rx:10}
+    .boxRed{fill:#fff0f0;stroke:#d00;stroke-width:1.4;rx:10}
+    .boxGreen{fill:#f0fff0;stroke:#1a8a1a;stroke-width:1.4;rx:10}
+    .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .sub{font-family:system-ui,sans-serif;font-size:9px;fill:#444;text-anchor:middle}
+    .code{font-family:ui-monospace,monospace;font-size:7px;fill:#222;text-anchor:middle}
+    .codeRed{font-family:ui-monospace,monospace;font-size:7px;fill:#a00;text-anchor:middle}
+    .codeGreen{font-family:ui-monospace,monospace;font-size:7px;fill:#0a5;text-anchor:middle}
+    .tagR{fill:#d00;rx:6} .tagG{fill:#1a8a1a;rx:6} .tagB{fill:#5258eb;rx:6}
+    .tagT{font-family:system-ui,sans-serif;font-size:8px;font-weight:700;fill:#fff;text-anchor:middle}
+    .arrow{stroke:#888;stroke-width:1.4;fill:none;marker-end:url(#a)} .arrowG{stroke:#1a8a1a;stroke-width:1.6;fill:none;marker-end:url(#ag)} .arrowR{stroke:#d00;stroke-width:1.6;fill:none;marker-end:url(#ar)}
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#888"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#d00"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1a8a1a"/></marker>
+  </defs>
+  <text x="450" y="24" class="h">Challenge → Solve: from problem to working add-on — why MCP is the difference</text>
+  <!-- top: challenge -->
+  <rect x="20" y="40" width="860" height="38" fill="#fff3cd" stroke="#e6a800" rx="8"/>
+  <text x="450" y="56" text-anchor="middle" font-family="system-ui" font-size="11" font-weight="700" fill="#7a5a00">CHALLENGE: "I want a branded button in Express that draws my community logo rectangle — 200×150 at 100,20, brand color"</text>
+  <text x="450" y="70" text-anchor="middle" font-family="system-ui" font-size="8" fill="#7a5a00">You ask any LLM. Without grounding, it hallucinates. With MCP, it answers with verified types.</text>
+  <!-- middle split -->
+  <!-- left: without MCP -->
+  <rect x="20" y="92" width="420" height="290" class="boxRed"/>
+  <rect x="30" y="102" width="90" height="16" class="tagR"/><text x="75" y="112" class="tagT">WITHOUT MCP ✘</text>
+  <text x="230" y="135" class="label">LLM guesses — you ship broken code</text>
+  <rect x="30" y="148" width="400" height="52" class="box"/><text x="230" y="162" class="codeRed">adobe.addOn.createShape({ type: "rect", x:100, y:20 })</text><text x="230" y="174" class="codeRed">app.document.addRectangle(200,150)  // invented</text><text x="230" y="186" class="codeRed">manifest: { "apiVersion": 2 } // wrong key</text>
+  <text x="230" y="212" class="sub">No file, no grounding → copy-paste fails in Express</text>
+  <text x="230" y="228" text-anchor="middle" font-family="system-ui" font-size="16" fill="#d00">✘ Cannot sideload</text>
+  <text x="230" y="245" class="sub">manifestVersion wrong, sandbox API missing,</text>
+  <text x="230" y="257" class="sub">LLM defends its hallucination</text>
+  <rect x="60" y="270" width="360" height="28" fill="#ffe0e0" stroke="#d00" rx="6"/><text x="240" y="283" text-anchor="middle" font-family="system-ui" font-size="9" fill="#a00">Error in Express: "express-document-sdk not found"</text>
+  <text x="230" y="310" text-anchor="middle" font-family="system-ui" font-size="9" fill="#d00">Time lost: 2h debugging invented APIs</text>
+  <text x="230" y="326" text-anchor="middle" font-family="system-ui" font-size="8" fill="#888">StackOverflow has no answer — docs moved</text>
+  <!-- right: with MCP -->
+  <rect x="460" y="92" width="420" height="290" class="boxGreen"/>
+  <rect x="470" y="102" width="90" height="16" class="tagG"/><text x="515" y="112" class="tagT">WITH MCP ✓</text>
+  <text x="670" y="135" class="label">LLM grounded — you ship working code</text>
+  <rect x="470" y="148" width="400" height="52" class="box"/><text x="670" y="162" class="codeGreen">import { editor } from "express-document-sdk"</text><text x="670" y="174" class="codeGreen">editor.createRectangle(); rect.translation={x:100,y:20}</text><text x="670" y="186" class="codeGreen">manifestVersion: 2, documentSandbox: "code.js"</text>
+  <text x="670" y="212" class="sub">MCP returns real types + manifest schema + bridge pattern</text>
+  <text x="670" y="228" text-anchor="middle" font-family="system-ui" font-size="16" fill="#1a8a1a">✓ Sideloads first try</text>
+  <text x="670" y="245" class="sub">Types from @adobe/ccweb-add-on-sdk-types 1.40.0</text>
+  <text x="670" y="257" class="sub">via MCP stdio: npx -y @adobe/express-developer-mcp</text>
+  <rect x="500" y="270" width="360" height="28" fill="#e0ffe0" stroke="#1a8a1a" rx="6"/><text x="680" y="283" text-anchor="middle" font-family="system-ui" font-size="9" fill="#0a5">addOnUISdk.ready → sandbox.createRectangle() → appended</text>
+  <text x="670" y="310" text-anchor="middle" font-family="system-ui" font-size="9" fill="#1a8a1a">Time saved: 5 min • grounded generation</text>
+  <text x="670" y="326" text-anchor="middle" font-family="system-ui" font-size="8" fill="#888">Discord feedback loop confirms pattern</text>
+  <!-- bottom arrow -->
+  <text x="450" y="405" text-anchor="middle" font-family="system-ui" font-size="9" font-weight="600" fill="#5258eb">This lab exists so you never debug a hallucinated API again — copy the hello-world and adapt.</text>
+</svg>

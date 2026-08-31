@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" viewBox="0 0 900 320">
+  <rect width="900" height="320" fill="#fafafa" rx="12"/>
+  <style>
+    .h{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .box{fill:#fff;stroke:#ddd;stroke-width:1.2;rx:10}
+    .boxBlue{fill:#eef0ff;stroke:#5258eb;stroke-width:1.4;rx:10}
+    .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .sub{font-family:system-ui,sans-serif;font-size:9px;fill:#555;text-anchor:middle}
+    .tag{font-family:system-ui,sans-serif;font-size:8px;font-weight:700;fill:#fff;text-anchor:middle}
+    .badge{fill:#5258eb;rx:6}
+    .badgeOrange{fill:#ff7a00;rx:6}
+    .badgeGreen{fill:#1a8a1a;rx:6}
+  </style>
+  <text x="450" y="26" class="h">What is Adobe Express? — the product behind the add-on</text>
+  <!-- mock browser window -->
+  <rect x="20" y="45" width="560" height="250" fill="#fff" stroke="#bbb" rx="10"/>
+  <rect x="20" y="45" width="560" height="24" fill="#eee" rx="10" ry="10"/><rect x="20" y="60" width="560" height="9" fill="#eee"/>
+  <circle cx="38" cy="57" r="5" fill="#ff5f57"/><circle cx="54" cy="57" r="5" fill="#ffbd2e"/><circle cx="70" cy="57" r="5" fill="#28ca42"/>
+  <text x="300" y="62" text-anchor="middle" font-family="system-ui" font-size="9" fill="#777">express.adobe.com — editor</text>
+  <!-- left sidebar -->
+  <rect x="30" y="80" width="70" height="200" fill="#f5f5ff" stroke="#e0e0ff" rx="8"/>
+  <text x="65" y="98" class="label">Templates</text><text x="65" y="110" class="sub">social • flyers</text>
+  <text x="65" y="135" class="label">Media</text><text x="65" y="147" class="sub">stock • upload</text>
+  <rect x="36" y="160" width="58" height="28" fill="#5258eb" rx="6"/><text x="65" y="172" class="tag">Add-ons</text><text x="65" y="182" class="tag">★ NEW</text>
+  <text x="65" y="210" class="label">Brand</text><text x="65" y="222" class="sub">kits • fonts</text>
+  <text x="65" y="250" class="label">Animate</text><text x="65" y="262" class="sub">video • resize</text>
+  <!-- canvas -->
+  <rect x="110" y="80" width="300" height="200" fill="#fff" stroke="#ddd" rx="8"/>
+  <text x="260" y="105" text-anchor="middle" font-family="system-ui" font-size="10" fill="#999">canvas — drag • resize • animate</text>
+  <rect x="140" y="120" width="80" height="50" fill="#ffd6e0" stroke="#ff8fab" rx="6"/><text x="180" y="150" text-anchor="middle" font-size="8" font-family="system-ui" fill="#a00">photo</text>
+  <rect x="240" y="130" width="100" height="40" fill="#e0f0ff" stroke="#7ab0ff" rx="6"/><text x="290" y="155" text-anchor="middle" font-size="8" font-family="system-ui" fill="#225">text: SALE 50%</text>
+  <rect x="170" y="185" width="120" height="30" fill="#e6ffe6" stroke="#7acc7a" rx="6"/><text x="230" y="204" text-anchor="middle" font-size="8" font-family="system-ui" fill="#1a5">shape</text>
+  <text x="260" y="272" text-anchor="middle" font-family="system-ui" font-size="8" fill="#888">free tier + Premium • 100M+ templates • browser + desktop</text>
+  <!-- right panel — add-on marketplace -->
+  <rect x="420" y="80" width="150" height="200" fill="#fafafa" stroke="#ddd" rx="8"/>
+  <text x="495" y="100" class="label">Your add-on</text>
+  <text x="495" y="115" class="sub">lives here → panel</text>
+  <rect x="435" y="130" width="120" height="30" fill="#fff" stroke="#5258eb" rx="6"/><text x="495" y="145" class="label">Hello World</text><text x="495" y="156" class="sub">Draw rectangle</text>
+  <rect x="435" y="170" width="120" height="22" fill="#5258eb" rx="6"/><text x="495" y="184" class="tag">Run add-on</text>
+  <text x="495" y="210" text-anchor="middle" font-family="system-ui" font-size="7" fill="#666">one-click install from</text>
+  <text x="495" y="220" text-anchor="middle" font-family="system-ui" font-size="7" fill="#5258eb">express.adobe.com/add-ons</text>
+  <!-- right explainer -->
+  <rect x="600" y="45" width="280" height="250" class="boxBlue"/>
+  <text x="740" y="70" class="label">Express in one line</text>
+  <text x="740" y="88" class="sub">Canva-like but Adobe-native:</text>
+  <text x="740" y="102" class="sub">design, video, brand kits, generative</text>
+  <text x="740" y="114" class="sub">AI (Firefly) — all in browser.</text>
+  <rect x="620" y="130" width="240" height="22" fill="#fff" stroke="#5258eb" rx="6"/><text x="740" y="144" class="label">Why community builders care</text>
+  <text x="620" y="162" text-anchor="start" font-family="system-ui" font-size="8" fill="#333">• 10s of millions of users</text>
+  <text x="620" y="176" text-anchor="start" font-family="system-ui" font-size="8" fill="#333">• add-ons = distribution (no infra)</text>
+  <text x="620" y="190" text-anchor="start" font-family="system-ui" font-size="8" fill="#333">• mix templates + data + AI</text>
+  <text x="620" y="204" text-anchor="start" font-family="system-ui" font-size="8" fill="#333">• free to list, review in days</text>
+  <text x="620" y="218" text-anchor="start" font-family="system-ui" font-size="8" fill="#333">• Fund for Design grants</text>
+  <text x="740" y="245" text-anchor="middle" font-family="system-ui" font-size="8" fill="#5258eb">Today: static panels that extend</text>
+  <text x="740" y="257" text-anchor="middle" font-family="system-ui" font-size="8" fill="#5258eb">the editor — no backend required</text>
+</svg>
