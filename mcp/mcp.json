@@ -1,0 +1,35 @@
+{
+  "_comment": "adobe express developer mcp — variants for cursor / claude desktop / vscode + heraldstack bridge",
+  "cursor": {
+    "mcpServers": {
+      "adobe-express-developer": {
+        "command": "npx",
+        "args": ["@adobe/express-developer-mcp@latest", "--yes"]
+      }
+    }
+  },
+  "claude_desktop": {
+    "mcpServers": {
+      "adobe-express-developer": {
+        "command": "npx",
+        "args": ["@adobe/express-developer-mcp@latest", "--yes"]
+      }
+    }
+  },
+  "vscode": {
+    "servers": {
+      "adobe-express-developer": {
+        "command": "npx",
+        "args": ["@adobe/express-developer-mcp@latest", "--yes"]
+      }
+    }
+  },
+  "heraldstack": {
+    "mcpServers": {
+      "adobe-express-developer": {
+        "command": "bash",
+        "args": ["-c", "./mcp-launchers/run.sh adobe-express-bridge.sh"]
+      }
+    }
+  }
+}
