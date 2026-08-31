@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+  <rect width="900" height="360" fill="#fafafa" rx="12"/>
+  <style>
+    .box{fill:#fff;stroke:#1a1a1a;stroke-width:1.4;rx:10}
+    .boxBlue{fill:#eef0ff;stroke:#5258eb;stroke-width:1.4;rx:10}
+    .title{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;fill:#1a1a1a;text-anchor:middle}
+    .sub{font-family:system-ui,sans-serif;font-size:9px;fill:#555;text-anchor:middle}
+    .arrow{stroke:#5258eb;stroke-width:1.6;fill:none;marker-end:url(#a2)}
+    .code{font-family:ui-monospace,monospace;font-size:8px;fill:#2a2a2a;text-anchor:middle}
+  </style>
+  <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5258eb"/></marker></defs>
+  <text x="450" y="28" class="title">Express Add-on runtime — iframe vs Document Sandbox (manifestVersion 2)</text>
+  <!-- left iframe -->
+  <rect x="20" y="55" width="410" height="280" class="boxBlue"/>
+  <text x="225" y="80" class="label">UI runtime — iframe</text>
+  <text x="225" y="95" class="sub">index.html • full browser APIs</text>
+  <rect x="35" y="110" width="380" height="44" class="box"/><text x="225" y="127" class="code">import addOnUISdk from "https://express.adobe.com/static/add-on-sdk/sdk.js"</text><text x="225" y="140" class="code">await addOnUISdk.ready</text>
+  <rect x="35" y="165" width="380" height="44" class="box"/><text x="225" y="182" class="code">fetch / OAuth popup / IndexedDB / DOM / canvas</text><text x="225" y="195" class="sub">React, file pickers, storage — unrestricted</text>
+  <rect x="35" y="220" width="380" height="44" class="box"/><text x="225" y="237" class="code">runtime.exposeApi({ notify }) → proxy</text><text x="225" y="250" class="code">runtime.getApi('sandbox').createRectangle({...})</text>
+  <text x="225" y="285" class="sub">Permissions: oauth: ["www.dropbox.com"]</text>
+  <text x="225" y="300" class="sub">sandbox: ["allow-popups","allow-presentation"]</text>
+  <text x="225" y="318" class="sub">Button click → fetch → invoke sandbox</text>
+  <!-- right sandbox -->
+  <rect x="470" y="55" width="410" height="280" class="box"/>
+  <text x="675" y="80" class="label">Document Sandbox — synchronous thread</text>
+  <text x="675" y="95" class="sub">code.js • limited Web APIs • injected console only</text>
+  <rect x="485" y="110" width="380" height="44" class="box"/><text x="675" y="127" class="code">import { editor } from "express-document-sdk"</text><text x="675" y="140" class="sub">only context allowed to mutate document</text>
+  <rect x="485" y="165" width="380" height="44" class="box"/><text x="675" y="182" class="code">editor.createRectangle() • makeColorFill()</text><text x="675" y="195" class="code">editor.context.insertionParent.children.append(rect)</text>
+  <rect x="485" y="220" width="380" height="44" class="box"/><text x="675" y="237" class="code">runtime.exposeApi({ createRectangle, clearArtboard })</text><text x="675" y="250" class="sub">Communication APIs: expose ↔ get ↔ invoke</text>
+  <text x="675" y="285" class="sub">No fetch, no popup — proxy via iframe</text>
+  <text x="675" y="300" class="sub">Runs sync in host business-logic thread</text>
+  <text x="675" y="318" class="sub">Slow engine, no debugger — use console</text>
+  <!-- arrows between -->
+  <path d="M430 240 H470" class="arrow"/>
+  <text x="450" y="232" text-anchor="middle" font-family="system-ui" font-size="9" fill="#5258eb">bridge</text>
+</svg>

@@ -2,6 +2,19 @@
 
 heraldstack-mcp wiring for `@adobe/express-developer-mcp` — read-only docs/types over stdio via npx.
 
+![HeraldStack wiring — registry to bridge to dispatcher to configs to IDE](../docs/assets/wiring-flow.svg)
+
+```mermaid
+flowchart LR
+  Reg["registry.yaml
+runtime: npx"] --> Bridge["adobe-express-bridge.sh
+exec npx -y ... --yes"]
+  Bridge --> Disp["run.sh dispatcher
+local vs ssh rocm-aibox"]
+  Disp --> Cfg["shannon.mcp.json / haunting.mcp.json"]
+  Cfg --> IDE["Cursor / Claude / VS Code"]
+```
+
 ## registry entry
 
 source of truth `~/code/heraldstack/heraldstack-mcp/registry.yaml` — fields: name, description, launcher, runtime, image, baked, session_wired, env_required, status, transport, notes
@@ -126,4 +139,3 @@ verify: `cat mcp/mcp.json | python3 -m json.tool` and `bash -n mcp/adobe-express
 - configs: `~/code/heraldstack/heraldstack-mcp/configs/haunting.mcp.json`, `configs/shannon.mcp.json`
 - infra compose: `~/code/heraldstack/heraldstack-infra/docker-compose.yml` (`localhost:81xx/mcp` + `/healthz`)
 - package: `npm view @adobe/express-developer-mcp --json` v1.0.0
-

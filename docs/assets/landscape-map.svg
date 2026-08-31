@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340">
+  <rect width="900" height="340" fill="#fafafa" rx="12"/>
+  <style>
+    .h{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .boxO{fill:#e6f5e6;stroke:#1a8a1a;stroke-width:1.4;rx:10}
+    .boxB{fill:#fff4e0;stroke:#b47a00;stroke-width:1.4;rx:10}
+    .boxC{fill:#eef0ff;stroke:#5258eb;stroke-width:1.4;rx:10}
+    .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .sub{font-family:system-ui,sans-serif;font-size:9px;fill:#333;text-anchor:middle}
+    .tag{font-family:system-ui,sans-serif;font-size:8px;font-weight:700;fill:#fff;text-anchor:middle}
+    .badgeO{fill:#1a8a1a;rx:6} .badgeB{fill:#b47a00;rx:6} .badgeC{fill:#5258eb;rx:6}
+  </style>
+  <text x="450" y="26" class="h">Adobe MCP landscape — official vs community (7 repos)</text>
+  <!-- official -->
+  <rect x="20" y="45" width="860" height="85" class="boxO"/>
+  <rect x="30" y="55" width="60" height="18" class="badgeO"/><text x="60" y="67" class="tag">OFFICIAL</text>
+  <text x="160" y="72" class="label">Express Developer MCP</text><text x="160" y="84" class="sub">1.0.0 prod • stdio • no auth</text><text x="160" y="96" class="sub">docs + types • npx -y</text>
+  <text x="310" y="72" class="label">RTCDP MCP</text><text x="310" y="84" class="sub">beta 2026-06-18 • remote http</text><text x="310" y="96" class="sub">browser OAuth • gated</text>
+  <text x="470" y="84" class="sub">supports Claude/ChatGPT/Cursor/VSCode • as-is without warranty</text>
+  <text x="720" y="84" class="sub">customer-elected risk • sandbox recommended</text>
+  <!-- beta warning -->
+  <rect x="30" y="108" width="840" height="18" fill="#fff" stroke="#1a8a1a" stroke-dasharray="4 4" rx="6"/>
+  <text x="450" y="120" text-anchor="middle" font-family="system-ui" font-size="8" fill="#1a8a1a">beta disclaimer quoted verbatim: emerging standard + as-is + sandbox guidance — see docs/adobe-mcp-landscape.md</text>
+  <!-- community -->
+  <rect x="20" y="145" width="860" height="175" class="boxC"/>
+  <rect x="30" y="155" width="80" height="18" class="badgeC"/><text x="70" y="167" class="tag">COMMUNITY</text>
+  <text x="450" y="155" text-anchor="middle" font-family="system-ui" font-size="10" fill="#5258eb">7 reference impls — not official, for comparison only</text>
+  <!-- row 1 -->
+  <rect x="30" y="175" width="260" height="38" fill="#fff" stroke="#5258eb" rx="8"/><text x="160" y="190" class="label">matrayu/adobe-mcp</text><text x="160" y="202" class="sub">FastMCP + WebSocket + UXP plugin</text>
+  <rect x="320" y="175" width="260" height="38" fill="#fff" stroke="#5258eb" rx="8"/><text x="450" y="190" class="label">vanhock/animate-mcp</text><text x="450" y="202" class="sub">CEP panel + ~/Documents/animate-mcp-bridge/ + JSFL</text>
+  <rect x="610" y="175" width="260" height="38" fill="#fff" stroke="#5258eb" rx="8"/><text x="740" y="190" class="label">marketo-mcp</text><text x="740" y="202" class="sub">FastMCP + Marketo REST</text>
+  <!-- row 2 -->
+  <rect x="30" y="225" width="200" height="38" fill="#fff" stroke="#5258eb" rx="8"/><text x="130" y="240" class="label">adobe/leonardo #269</text><text x="130" y="252" class="sub">proposal</text>
+  <rect x="250" y="225" width="200" height="38" fill="#fff" stroke="#5258eb" rx="8"/><text x="350" y="240" class="label">firefly (evolv3ai)</text><text x="350" y="252" class="sub">Docker</text>
+  <rect x="470" y="225" width="200" height="38" fill="#fff" stroke="#9aa0ff" rx="8"/><text x="570" y="240" class="label">aem-api (ag2)</text><text x="570" y="252" class="sub">404 unverified</text>
+  <rect x="690" y="225" width="180" height="38" fill="#fff" stroke="#5258eb" rx="8"/><text x="780" y="240" class="label">extensibility_mcp</text><text x="780" y="252" class="sub">I/O Runtime actions</text>
+  <!-- foot -->
+  <text x="450" y="285" text-anchor="middle" font-family="system-ui" font-size="9" fill="#5258eb">Express MCP = docs grounding (this lab) vs Photoshop/Animate MCPs = live canvas automation — different security models.</text>
+  <text x="450" y="302" text-anchor="middle" font-family="system-ui" font-size="9" fill="#666">Full comparison table + sources per claim in docs/adobe-mcp-landscape.md</text>
+</svg>

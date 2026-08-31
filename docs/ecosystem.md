@@ -4,18 +4,36 @@
 
 Source of truth for claims is cited inline per source note; primary upstream is [Adobe Express Add-ons Docs](https://developer.adobe.com/express/add-ons/docs/).
 
+![iframe vs Document Sandbox — where code runs and how they bridge](assets/sandbox-iframe-flow.svg)
+
+```mermaid
+flowchart TB
+  subgraph UI["UI — iframe (index.html)"]
+    A["addOnUISdk from CDN
+fetch / OAuth / DOM"]
+    B["runtime.exposeApi / getApi"]
+  end
+  subgraph SB["Document Sandbox — code.js"]
+    C["import { editor } from 'express-document-sdk'"]
+    D["editor.createRectangle + makeColorFill
+insertionParent.children.append"]
+  end
+  A --> B <--> C
+  B --> D
+```
+
 ---
 
 ## 1. Add-on model overview
 
 Adobe Express add-ons extend the Express editor (browser + desktop) via a declared, permissioned model. Every add-on is a static bundle shipped with a `manifest.json` that declares capabilities and entry points. The runtime is intentionally **iframe + document-sandbox** — not a privileged native host.
 
-| Concern | Express Add-on answer | Source |
-|---------|----------------------|--------|
-| Bundle root | `manifest.json` at root | [Manifest Schema Ref](https://developer.adobe.com/express/add-ons/docs/references/manifest/) |
-| UI | HTML/JS/CSS in an `<iframe>` (panel) | [Add-on UI SDK Ref](https://developer.adobe.com/express/add-ons/docs/references/addonsdk/) |
-| Document mutation | Sandboxed JS thread synchronous to host business logic | [Document Sandbox Overview](https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/) |
-| Communication | `runtime` / `communication` APIs bridging iframe ↔ sandbox | [Document Sandbox — Communication APIs](https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/) |
+| Concern           | Express Add-on answer                                      | Source                                                                                                                 |
+| ----------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Bundle root       | `manifest.json` at root                                    | [Manifest Schema Ref](https://developer.adobe.com/express/add-ons/docs/references/manifest/)                           |
+| UI                | HTML/JS/CSS in an `<iframe>` (panel)                       | [Add-on UI SDK Ref](https://developer.adobe.com/express/add-ons/docs/references/addonsdk/)                             |
+| Document mutation | Sandboxed JS thread synchronous to host business logic     | [Document Sandbox Overview](https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/)             |
+| Communication     | `runtime` / `communication` APIs bridging iframe ↔ sandbox | [Document Sandbox — Communication APIs](https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/) |
 
 The same sources enumerate entry points, permissions, and the engine split; see sections below.
 
@@ -64,6 +82,7 @@ Source: [Manifest Schema Reference — requirements](https://developer.adobe.com
 - `type: "panel"` (the only supported entry-point type at time of docs), `id`, `main` (HTML), `documentSandbox` (JS file that runs in the sandbox). At least one entry point is required. The snippet above is the canonical CLI-generated shape.
 
 Source: [Manifest Schema Reference — entryPoints](https://developer.adobe.com/express/add-ons/docs/references/manifest/) and [Document Sandbox — entry point](https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/) which shows:
+
 ```json
 "entryPoints": [{ "type": "panel", "id": "panel1", "main": "index.html", "documentSandbox": "code.js" }]
 ```
@@ -103,7 +122,7 @@ Source: [Add-on UI SDK Reference — Importing the addOnUISdk](https://developer
 
 ### 3.2 Document Sandbox — the document thread
 
-- A **sandboxed JS execution environment** that runs synchronously in the same thread as the host application business logic, giving safe synchronous access to the document. Quote from docs: *"The document sandbox is a sandboxed JavaScript execution environment, which allows to execute add-on's JavaScript code securely and synchronously in another JavaScript environment e.g., browser."*
+- A **sandboxed JS execution environment** that runs synchronously in the same thread as the host application business logic, giving safe synchronous access to the document. Quote from docs: _"The document sandbox is a sandboxed JavaScript execution environment, which allows to execute add-on's JavaScript code securely and synchronously in another JavaScript environment e.g., browser."_
 
 Source: [Document Sandbox Overview](https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/).
 
@@ -123,11 +142,11 @@ Source: [Document Sandbox — Communication APIs section](https://developer.adob
 
 ### 3.4 Which logic goes where?
 
-| Logic | Place it in | Why |
-|-------|-------------|-----|
-| Rendering UI, React/Vue, network calls, OAuth popups, file pickers, storage | **iframe** (`index.html` + SDK) | Full browser environment |
+| Logic                                                                        | Place it in                                      | Why                                                  |
+| ---------------------------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------- |
+| Rendering UI, React/Vue, network calls, OAuth popups, file pickers, storage  | **iframe** (`index.html` + SDK)                  | Full browser environment                             |
 | Creating / reading / mutating Express document nodes, pages, fills, geometry | **document sandbox** (`code.js` + Document APIs) | Only context allowed to touch `editor` synchronously |
-| Orchestration (e.g. button click → fetch → draw shape) | Both, via Communication proxy | Iframe triggers, sandbox applies |
+| Orchestration (e.g. button click → fetch → draw shape)                       | Both, via Communication proxy                    | Iframe triggers, sandbox applies                     |
 
 ---
 
@@ -198,17 +217,17 @@ Source: [Manifest — version field](https://developer.adobe.com/express/add-ons
 
 ## 7. CEP / UXP vs Express Add-ons
 
-| Dimension | CEP (Common Extensibility Platform) — Photoshop/Illustrator/AE legacy | UXP (Unified Extensibility Platform) — Photoshop / InDesign / XD modern | **Express Add-ons (iframe + sandbox)** |
-|-----------|--------|--------|--------|
-| Host | CEP panels run CEF (Chromium Embedded Framework) + Node.js + ExtendScript DOM | UXP runs JS engine + native plugins (C++ via UXP hybrid), manifest `v4`/`v5` | Browser iframe + sandboxed JS synchronous thread |
-| Languages | JS + JSX (ExtendScript) + Node | JS + Spectrum UXP + optional C++ | JS/TS + HTML/CSS only (no Node) |
-| Rendering | CEF panel HTML, full Node FS access (security risk) | UXP Spectrum components, limited FS | Standard iframe DOM; no direct FS |
-| Document access | ExtendScript `app.activeDocument` (legacy, async quirks) | UXP `app` / `batchPlay` / `photoshopCore` | `express-document-sdk` → `editor` module only |
-| Networking | Full Node `fetch`/`http` | UXP `fetch` + storage APIs | Only in iframe; sandbox proxies via Communication APIs |
-| Permissions | Weak — Node gives broad system access | Manifest-declared, narrower | Strict per-entry-point `permissions.sandbox` / `oauth` |
-| Distribution | Exchange / ZXP installers, manual | Creative Cloud Marketplace (CC Desktop) | **Express Marketplace** (`express.adobe.com/add-ons`) |
-| Debugging | `chrome://inspect`, VS Code CEP debugger | UDT (UXP Developer Tool) | Browser DevTools for iframe + injected `console` in sandbox (no sandbox debugger) |
-| Multi-app | CEP works across PS/AI/AE/Premiere (separate manifests) | UXP per-app with shared core | Express-only (`requirements.apps: [{name:"Express"}]`) today |
+| Dimension       | CEP (Common Extensibility Platform) — Photoshop/Illustrator/AE legacy         | UXP (Unified Extensibility Platform) — Photoshop / InDesign / XD modern      | **Express Add-ons (iframe + sandbox)**                                            |
+| --------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Host            | CEP panels run CEF (Chromium Embedded Framework) + Node.js + ExtendScript DOM | UXP runs JS engine + native plugins (C++ via UXP hybrid), manifest `v4`/`v5` | Browser iframe + sandboxed JS synchronous thread                                  |
+| Languages       | JS + JSX (ExtendScript) + Node                                                | JS + Spectrum UXP + optional C++                                             | JS/TS + HTML/CSS only (no Node)                                                   |
+| Rendering       | CEF panel HTML, full Node FS access (security risk)                           | UXP Spectrum components, limited FS                                          | Standard iframe DOM; no direct FS                                                 |
+| Document access | ExtendScript `app.activeDocument` (legacy, async quirks)                      | UXP `app` / `batchPlay` / `photoshopCore`                                    | `express-document-sdk` → `editor` module only                                     |
+| Networking      | Full Node `fetch`/`http`                                                      | UXP `fetch` + storage APIs                                                   | Only in iframe; sandbox proxies via Communication APIs                            |
+| Permissions     | Weak — Node gives broad system access                                         | Manifest-declared, narrower                                                  | Strict per-entry-point `permissions.sandbox` / `oauth`                            |
+| Distribution    | Exchange / ZXP installers, manual                                             | Creative Cloud Marketplace (CC Desktop)                                      | **Express Marketplace** (`express.adobe.com/add-ons`)                             |
+| Debugging       | `chrome://inspect`, VS Code CEP debugger                                      | UDT (UXP Developer Tool)                                                     | Browser DevTools for iframe + injected `console` in sandbox (no sandbox debugger) |
+| Multi-app       | CEP works across PS/AI/AE/Premiere (separate manifests)                       | UXP per-app with shared core                                                 | Express-only (`requirements.apps: [{name:"Express"}]`) today                      |
 
 **Narrative:** CEP was powerful but insecure and hard to review (Node + CEF). UXP tightened the model with Spectrum and permissioned manifests while keeping native capability for Photoshop/Illustrator. Express Add-ons intentionally went further: no Node, no filesystem, no native plugins — pure web iframe plus a synchronous sandboxed document thread. This enables fast review, safe execution at marketplace scale, and easy web-dev onboarding, at the cost of raw host power (no Photoshop `batchPlay`, no Illustrator vector booleans beyond what `editor` exposes).
 

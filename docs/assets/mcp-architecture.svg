@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" viewBox="0 0 900 320" role="img" aria-label="Adobe Express Developer MCP architecture">
+  <rect width="900" height="320" fill="#fafafa" rx="12"/>
+  <style>
+    .box { fill: #fff; stroke: #5258eb; stroke-width: 1.5; rx: 10; }
+    .boxAlt { fill: #5258eb; stroke: #5258eb; rx: 10; }
+    .label { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #1a1a1a; text-anchor: middle; }
+    .labelAlt { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #fff; text-anchor: middle; }
+    .sub { font-family: system-ui, sans-serif; font-size: 10px; fill: #666; text-anchor: middle; }
+    .subAlt { font-family: system-ui, sans-serif; font-size: 10px; fill: #e6e8ff; text-anchor: middle; }
+    .arrow { stroke: #5258eb; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+    .note { font-family: system-ui, sans-serif; font-size: 9px; fill: #888; text-anchor: middle; }
+  </style>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5258eb"/></marker></defs>
+  <text x="450" y="28" text-anchor="middle" font-family="system-ui" font-size="14" font-weight="700" fill="#1a1a1a">Adobe Express Developer MCP — stdio architecture (read-only, no auth)</text>
+  <!-- boxes -->
+  <rect x="20" y="60" width="150" height="70" class="box"/><text x="95" y="88" class="label">Cursor / Claude</text><text x="95" y="102" class="label">VS Code / HeraldStack</text><text x="95" y="118" class="sub">mcp.json</text>
+  <rect x="210" y="60" width="150" height="70" class="boxAlt"/><text x="285" y="88" class="labelAlt">npx bridge</text><text x="285" y="105" class="subAlt">adobe-express-bridge.sh</text><text x="285" y="118" class="subAlt">exec npx -y ... --yes</text>
+  <rect x="400" y="60" width="150" height="70" class="box"/><text x="475" y="88" class="label">MCP Server 1.0.0</text><text x="475" y="102" class="sub">stdio transport</text><text x="475" y="118" class="sub">bin/run.js • 197kB</text>
+  <rect x="590" y="60" width="150" height="70" class="box"/><text x="665" y="88" class="label">LLM</text><text x="665" y="102" class="sub">grounded generation</text><text x="665" y="118" class="sub">no hallucination</text>
+  <rect x="760" y="60" width="120" height="70" class="box"/><text x="820" y="88" class="label">Docs + Types</text><text x="820" y="103" class="sub">semantic search</text><text x="820" y="118" class="sub">ccweb-add-on-sdk</text>
+  <!-- arrows top row -->
+  <path d="M170 95 H210" class="arrow"/><text x="190" y="72" class="note">mcpServers</text>
+  <path d="M360 95 H400" class="arrow"/><text x="380" y="72" class="note">stdio</text>
+  <path d="M550 95 H590" class="arrow"/><text x="570" y="72" class="note">tools</text>
+  <path d="M740 95 H760" class="arrow"/><text x="750" y="72" class="note">fetch</text>
+  <!-- bottom: what it enables -->
+  <rect x="20" y="170" width="860" height="120" fill="#eef0ff" stroke="#ddd" rx="10"/>
+  <text x="450" y="195" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="600" fill="#5258eb">What you build with it → Add-on that runs INSIDE Express</text>
+  <rect x="40" y="210" width="240" height="60" class="box"/><text x="160" y="233" class="label">iframe (UI)</text><text x="160" y="248" class="sub">index.html • SDK via CDN</text><text x="160" y="260" class="sub">fetch • OAuth • UI</text>
+  <rect x="330" y="210" width="240" height="60" class="box"/><text x="450" y="233" class="label">Document Sandbox</text><text x="450" y="248" class="sub">code.js • editor API</text><text x="450" y="260" class="sub">createRectangle • append</text>
+  <rect x="620" y="210" width="240" height="60" class="box"/><text x="740" y="233" class="label">Express Doc</text><text x="740" y="248" class="sub">insertionParent.children</text><text x="740" y="260" class="sub">rect.fill = makeColorFill</text>
+  <path d="M280 240 H330" class="arrow"/><text x="305" y="223" class="note">exposeApi</text>
+  <path d="M570 240 H620" class="arrow"/><text x="595" y="223" class="note">getApi</text>
+  <text x="450" y="305" class="note">MCP does NOT drive canvas — it grounds the LLM so the add-on code is correct. Verified: node ≥18, sha512 kqEGi..., 2026-01-14.</text>
+</svg>

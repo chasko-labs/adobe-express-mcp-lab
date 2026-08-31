@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+  <rect width="900" height="300" fill="#fafafa" rx="12"/>
+  <style>
+    .box{fill:#fff;stroke:#5258eb;stroke-width:1.4;rx:10}
+    .boxDim{fill:#f3f3f3;stroke:#999;stroke-width:1;rx:10;stroke-dasharray:4 4}
+    .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+    .sub{font-family:system-ui,sans-serif;font-size:9px;fill:#555;text-anchor:middle}
+    .code{font-family:ui-monospace,monospace;font-size:7.5px;fill:#1a1a1a;text-anchor:middle}
+    .arrow{stroke:#5258eb;stroke-width:1.6;fill:none;marker-end:url(#a3)}
+    .arrowDim{stroke:#999;stroke-width:1;fill:none;stroke-dasharray:4 4}
+    .h{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a;text-anchor:middle}
+  </style>
+  <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5258eb"/></marker></defs>
+  <text x="450" y="24" class="h">HeraldStack wiring — adobe-express-developer (stdio, no Docker)</text>
+  <rect x="20" y="45" width="140" height="60" class="box"/><text x="90" y="68" class="label">registry.yaml</text><text x="90" y="82" class="code">name: adobe-express-</text><text x="90" y="92" class="code">developer</text><text x="90" y="103" class="sub">runtime: npx</text>
+  <rect x="190" y="45" width="170" height="60" class="box"/><text x="275" y="68" class="label">bridge launcher</text><text x="275" y="82" class="code">launchers/bridges/</text><text x="275" y="92" class="code">adobe-express-bridge.sh</text><text x="275" y="103" class="sub">exec npx -y ... --yes</text>
+  <rect x="390" y="45" width="150" height="60" class="box"/><text x="465" y="68" class="label">dispatcher</text><text x="465" y="82" class="code">run.sh adobe-express-</text><text x="465" y="92" class="code">bridge.sh</text><text x="465" y="103" class="sub">local vs ssh rocm-aibox</text>
+  <rect x="570" y="45" width="150" height="60" class="box"/><text x="645" y="68" class="label">configs</text><text x="645" y="82" class="code">shannon.mcp.json</text><text x="645" y="92" class="code">haunting.mcp.json</text><text x="645" y="103" class="sub">mcpServers entry</text>
+  <rect x="750" y="45" width="130" height="60" class="box"/><text x="815" y="68" class="label">IDE</text><text x="815" y="82" class="sub">Cursor / Claude /</text><text x="815" y="92" class="sub">VS Code</text>
+  <path d="M160 75 H190" class="arrow"/><path d="M360 75 H390" class="arrow"/><path d="M540 75 H570" class="arrow"/><path d="M720 75 H750" class="arrow"/>
+  <!-- compare -->
+  <rect x="20" y="135" width="430" height="140" class="box"/>
+  <text x="235" y="155" class="label">This bridge (active)</text>
+  <text x="235" y="172" class="code">command: npx  args: ["@adobe/express-developer-mcp@latest","--yes"]</text>
+  <text x="235" y="185" class="sub">transport: stdio • baked: null • env_required: [] • no auth</text>
+  <text x="235" y="200" class="sub">session_wired: [shannon, haunting] • opt-in</text>
+  <text x="235" y="218" class="code">mcp/mcp.json → cursor / claude_desktop / vscode / heraldstack</text>
+  <text x="235" y="235" class="sub">bare-name stdio only — no type:http, no gateway routing</text>
+  <text x="235" y="255" class="sub">verify: bash -n mcp/adobe-express-bridge.sh && cat mcp/mcp.json | python3 -m json.tool</text>
+  <rect x="470" y="135" width="410" height="140" class="boxDim"/>
+  <text x="675" y="155" class="label" fill="#777">Contrast: persistent HTTP MCPs</text>
+  <text x="675" y="172" class="code" fill="#777">image: baked Docker • localhost:81xx/mcp</text>
+  <text x="675" y="185" class="sub" fill="#777">context7:8130 • goose-docs:8131 • valkey:8110</text>
+  <text x="675" y="200" class="sub" fill="#777">healthcheck: /healthz • compose in heraldstack-infra</text>
+  <text x="675" y="218" class="sub" fill="#777">not used for this read-only stdio bridge</text>
+  <text x="675" y="235" class="sub" fill="#777">deferred: gateway routing (no cedar value)</text>
+</svg>

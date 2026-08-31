@@ -2,26 +2,44 @@
 
 > Concise factual reference for `@adobe/express-developer-mcp`. Verified via `npm view --json` and Adobe developer docs.
 
+![MCP stdio architecture — IDE to npx bridge to MCP server to LLM to docs+types](assets/mcp-architecture.svg)
+
+```mermaid
+flowchart LR
+  IDE["Cursor / Claude / VS Code
+mcp.json"] --> Bridge["npx bridge
+adobe-express-bridge.sh
+exec npx -y @adobe/express-developer-mcp@latest --yes"]
+  Bridge --> MCP["MCP Server 1.0.0
+stdio • bin/run.js • 197kB"]
+  MCP --> LLM["LLM grounded"]
+  LLM --> Docs["Docs + Types
+semantic search
+ccweb-add-on-sdk-types"]
+  Docs -.-> Addon["Add-on inside Express
+iframe + sandbox"]
+```
+
 ## Package identity
 
-| Field | Value |
-|-------|-------|
-| **Package** | `@adobe/express-developer-mcp` |
-| **Latest dist-tag** | `1.0.0` |
-| **Current version** | `1.0.0` |
-| **Description** | MCP server for Adobe Express Developer |
-| **License** | See LICENSE file |
-| **Author** | Adobe Inc. |
-| **Type** | `module` (ESM) |
-| **Engines** | `node >=18.0.0` |
-| **Bin** | `adobe-express-developer-mcp-server -> bin/run.js` |
+| Field               | Value                                              |
+| ------------------- | -------------------------------------------------- |
+| **Package**         | `@adobe/express-developer-mcp`                     |
+| **Latest dist-tag** | `1.0.0`                                            |
+| **Current version** | `1.0.0`                                            |
+| **Description**     | MCP server for Adobe Express Developer             |
+| **License**         | See LICENSE file                                   |
+| **Author**          | Adobe Inc.                                         |
+| **Type**            | `module` (ESM)                                     |
+| **Engines**         | `node >=18.0.0`                                    |
+| **Bin**             | `adobe-express-developer-mcp-server -> bin/run.js` |
 
 Source: `npm view @adobe/express-developer-mcp --json` — `name`, `dist-tags.latest`, `version`, `type`, `engines.node`, `bin`, `description`.
 
 ## Version matrix
 
-| Version | Published (time) | Dist-tag |
-|---------|------------------|----------|
+| Version | Published (time)                                  | Dist-tag |
+| ------- | ------------------------------------------------- | -------- |
 | `1.0.0` | `2026-01-14T17:44:57.924Z` (also `time["1.0.0"]`) | `latest` |
 
 Registry timestamps:
@@ -35,15 +53,15 @@ Source: `npm view @adobe/express-developer-mcp --json` (`time`, `versions`, `dis
 
 ## Distribution
 
-| Field | Value |
-|-------|-------|
-| **Registry** | `https://registry.npmjs.org/` (`publishConfig.registry`) |
-| **Tarball** | `https://registry.npmjs.org/@adobe/express-developer-mcp/-/express-developer-mcp-1.0.0.tgz` |
-| **Tarball file** | `express-developer-mcp-1.0.0.tgz` |
-| **Integrity (sha512)** | `kqEGiGSb3QjfsWAaSwHk0pRwcTg6LGEj6A02baOxQR81ipTOEgFETE+0aeyyVacUfIMJyceQVslESjgdbv/puQ==` |
-| **Shasum (sha1)** | `83d21b4a13d45dff4fbc00134f3fbd205936d2e9` |
-| **File count** | `14` |
-| **Unpacked size** | `197185` bytes (~197 kB) |
+| Field                  | Value                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| **Registry**           | `https://registry.npmjs.org/` (`publishConfig.registry`)                                    |
+| **Tarball**            | `https://registry.npmjs.org/@adobe/express-developer-mcp/-/express-developer-mcp-1.0.0.tgz` |
+| **Tarball file**       | `express-developer-mcp-1.0.0.tgz`                                                           |
+| **Integrity (sha512)** | `kqEGiGSb3QjfsWAaSwHk0pRwcTg6LGEj6A02baOxQR81ipTOEgFETE+0aeyyVacUfIMJyceQVslESjgdbv/puQ==`  |
+| **Shasum (sha1)**      | `83d21b4a13d45dff4fbc00134f3fbd205936d2e9`                                                  |
+| **File count**         | `14`                                                                                        |
+| **Unpacked size**      | `197185` bytes (~197 kB)                                                                    |
 
 Source: `npm view @adobe/express-developer-mcp --json` (`dist.tarball`, `dist.integrity`, `dist.shasum`, `dist.fileCount`, `dist.unpackedSize`). Verified with `npm pack --dry-run` equivalent fields.
 
@@ -72,11 +90,11 @@ Source: Adobe docs `mcp-server` page “New Stable MCP Server” callout.
 
 ## Capabilities
 
-| Capability | What it provides |
-|------------|------------------|
-| **Semantic documentation search** | Find relevant guides, examples, tutorials without leaving editor |
-| **TypeScript definitions** | Official `@adobe/ccweb-add-on-sdk-types` types — accurate completions, reduced hallucinations |
-| **Structured access for grounded code generation** | LLM gets grounded, up-to-date Adobe Express Add-on docs to generate code/debug/build |
+| Capability                                         | What it provides                                                                              |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Semantic documentation search**                  | Find relevant guides, examples, tutorials without leaving editor                              |
+| **TypeScript definitions**                         | Official `@adobe/ccweb-add-on-sdk-types` types — accurate completions, reduced hallucinations |
+| **Structured access for grounded code generation** | LLM gets grounded, up-to-date Adobe Express Add-on docs to generate code/debug/build          |
 
 Source: Adobe docs `mcp-server` page “What it does” + `npm view` dependencies (`@adobe/ccweb-add-on-sdk-types`, `@modelcontextprotocol/sdk@1.12.0`).
 
@@ -104,7 +122,8 @@ Source: Adobe docs “Quick Setup (No Installation Required)” Steps 1–2, plu
 ```
 
 ### Claude Desktop — `claude_desktop_config.json`
-*(macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`, Windows: `%APPDATA%\Claude\claude_desktop_config.json`)*
+
+_(macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`, Windows: `%APPDATA%\Claude\claude_desktop_config.json`)_
 
 ```json
 {
@@ -129,6 +148,7 @@ Source: Adobe docs “Quick Setup (No Installation Required)” Steps 1–2, plu
   }
 }
 ```
+
 > Note: Cursor/Claude use `mcpServers`; VS Code docs show `servers` at time of writing — keep key as your VS Code version expects. Restart IDE after saving.
 
 Sources: Adobe docs `mcp-server` page “Configuration file locations” + per-IDE tabs (Cursor `~/.cursor/mcp.json`, Claude `claude_desktop_config.json`, VS Code `~/.vscode/mcp.json`).
