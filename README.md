@@ -2,6 +2,10 @@
 
 > lab for the adobe express developer mcp — first adobe mcp use case for chasko-labs. documents process, learnings, features, settings, versions, wiring per heraldstack-mcp standards. reproducible starter so any heraldstack agent can ground express add-on work without hallucination.
 
+![AWS Builder Center banner — Cloud Del Norte design system, 1440×400](docs/assets/aws-builder-center-banner.svg)
+
+> **new use case — aws builder center banner:** community builder cover for `builder.aws.com/community/@alias` — generated from this lab's design-system tokens via the mcp. see [use case](docs/use-cases/aws-builder-center-banner.md) · [spec](spec/use-cases/aws-builder-center-banner-spec.md) · [plan](spec/use-cases/aws-builder-center-banner-plan.md) · [add-on](addons/aws-builder-banner/) · [raw svg](https://raw.githubusercontent.com/chasko-labs/adobe-express-mcp-lab/main/docs/assets/aws-builder-center-banner.svg)
+
 ![MCP stdio architecture — IDE to npx bridge to MCP server to LLM to docs+types](docs/assets/mcp-architecture.svg)
 
 ```mermaid

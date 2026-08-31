@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AWS Builder Banner — Cloud Del Norte</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 16px;
+        background: #00002a;
+        color: #f0f0f0;
+      }
+      h1 {
+        font-family: Cinzel, Georgia, serif;
+        font-size: 16px;
+        margin: 0 0 4px;
+      }
+      p {
+        font-size: 11px;
+        color: #d7c7ee;
+        margin: 0 0 12px;
+        line-height: 1.4;
+      }
+      label {
+        font-size: 10px;
+        color: #d7c7ee;
+        display: block;
+        margin: 8px 0 4px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #5a1f8a;
+        border-radius: 6px;
+        background: #1a0a2e;
+        color: #f0f0f0;
+        font-family:
+          JetBrains Mono,
+          monospace;
+        font-size: 11px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        border: 0;
+        border-radius: 8px;
+        background: #ff9900;
+        color: #1a1a1a;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 12px;
+      }
+      button:active {
+        background: #e68a00;
+      }
+      button.secondary {
+        background: #fff;
+        color: #5a1f8a;
+        border: 1px solid #9060f0;
+      }
+      pre {
+        font-size: 9px;
+        background: #1a0a2e;
+        color: #9060f0;
+        padding: 8px;
+        border-radius: 6px;
+        overflow: auto;
+        display: none;
+        margin-top: 12px;
+        border: 1px solid #5a1f8a;
+      }
+      .badge {
+        font-size: 9px;
+        background: #5a1f8a;
+        color: #d7c7ee;
+        padding: 2px 6px;
+        border-radius: 999px;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="badge">mcp grounded • 1440×400 • navy #00002a</span>
+    <h1>AWS Builder Banner</h1>
+    <p>
+      Cloud Del Norte design system → 1440×400. Generates via document sandbox
+      <code>editor.createRectangle</code> + <code>makeColorFill</code>.
+    </p>
+    <label>Headline (Cinzel)</label
+    ><input id="headline" value="Cloud Del Norte" />
+    <label>Subhead (JetBrains Mono)</label
+    ><input id="subhead" value="AWS User Group • El Paso Borderplex" />
+    <label>Tagline</label
+    ><input
+      id="tagline"
+      value="Community builders • Workshops • Cloud • AI/ML"
+    />
+    <label>Theme</label
+    ><select id="theme">
+      <option value="dark">el-paso-nights (dark navy)</option>
+      <option value="light">gypsum-sands (light #ede5d4)</option>
+    </select>
+    <button id="generate">Generate 1440×400 Banner</button>
+    <button id="clear" class="secondary">Clear</button>
+    <pre id="log"></pre>
+    <script type="module">
+      import addOnUISdk from "https://express.adobe.com/static/add-on-sdk/sdk.js";
+      await addOnUISdk.ready;
+      const log = (m) => {
+        const el = document.getElementById("log");
+        el.style.display = "block";
+        el.textContent += m + "\n";
+      };
+      log("addOnUISdk ready — theme:" + addOnUISdk.app.theme);
+      document.getElementById("generate").onclick = async () => {
+        const headline = document.getElementById("headline").value;
+        const subhead = document.getElementById("subhead").value;
+        const tagline = document.getElementById("tagline").value;
+        const theme = document.getElementById("theme").value;
+        try {
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.generateBanner({
+            headline,
+            subhead,
+            tagline,
+            theme,
+            width: 1440,
+            height: 400,
+          });
+          log("banner generated " + headline + " " + theme);
+        } catch (e) {
+          log("error: " + (e.message || e));
+        }
+      };
+      document.getElementById("clear").onclick = async () => {
+        try {
+          const api = await addOnUISdk.instance.runtime.getApi("sandbox");
+          await api.clearArtboard();
+          log("cleared");
+        } catch (e) {
+          log("clear: " + (e.message || e));
+        }
+      };
+    </script>
+  </body>
+</html>

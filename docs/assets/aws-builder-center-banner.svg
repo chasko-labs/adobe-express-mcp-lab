@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="400" viewBox="0 0 1440 400" role="img" aria-label="Cloud Del Norte — AWS Builder Center banner, 1440x400, dark nebula with star-on-mountain">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00002a"/>
+      <stop offset="55%" stop-color="#12023a"/>
+      <stop offset="100%" stop-color="#30006a"/>
+    </linearGradient>
+    <linearGradient id="dust" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(215,199,238,0.0)"/>
+      <stop offset="50%" stop-color="rgba(215,199,238,0.09)"/>
+      <stop offset="100%" stop-color="rgba(215,199,238,0.0)"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="400" fill="url(#bg)"/>
+  <rect width="1440" height="400" fill="url(#dust)"/>
+  <!-- subtle nebula spots -->
+  <circle cx="220" cy="140" r="120" fill="rgba(90,31,138,0.18)" filter="url(#glow)"/>
+  <circle cx="1200" cy="280" r="140" fill="rgba(144,96,240,0.12)" filter="url(#glow)"/>
+  <circle cx="720" cy="80" r="90" fill="rgba(201,162,63,0.07)"/>
+  <!-- safe area guides (subtle) -->
+  <rect x="120" y="0" width="1200" height="400" fill="none" stroke="rgba(255,255,255,0.04)" stroke-dasharray="8 8"/>
+  <!-- star mark — simplified 5-point star-on-mountain at (180,200), 160x160 -->
+  <g transform="translate(180,200)">
+    <!-- outer white outline star -->
+    <polygon points="0,-68 16,-22 68,-20 26,8 38,58 0,28 -38,58 -26,8 -68,-20 -16,-22" fill="none" stroke="#f0f0f0" stroke-width="4.5" stroke-linejoin="round" opacity="0.98"/>
+    <!-- inner violet lattice -->
+    <g stroke="#9060f0" stroke-width="1.2" opacity="0.9">
+      <line x1="0" y1="-68" x2="0" y2="28"/>
+      <line x1="-68" y1="-20" x2="26" y2="8"/>
+      <line x1="68" y1="-20" x2="-26" y2="8"/>
+      <line x1="-38" y1="58" x2="38" y2="58"/>
+    </g>
+    <!-- 5 tip diamonds -->
+    <g fill="#9060f0" stroke="#f0f0f0" stroke-width="1">
+      <polygon points="0,-78 -7,-68 0,-58 7,-68"/>
+      <polygon points="78,-23 68,-16 58,-23 68,-30"/>
+      <polygon points="44,68 34,58 44,48 54,58"/>
+      <polygon points="-44,68 -54,58 -44,48 -34,58"/>
+      <polygon points="-78,-23 -68,-16 -58,-23 -68,-30"/>
+    </g>
+    <!-- center sparkle -->
+    <circle cx="0" cy="2" r="6" fill="#fff"/>
+    <circle cx="0" cy="2" r="3" fill="#9060f0"/>
+    <!-- mountain base hint -->
+    <path d="M -52 62 L -18 42 L 0 52 L 18 42 L 52 62 Z" fill="none" stroke="rgba(240,240,240,0.35)" stroke-width="1.2"/>
+  </g>
+  <text x="180" y="300" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="rgba(215,199,238,0.75)">★ star-on-mountain • light mark for dark</text>
+  <!-- centered wordmark inside safe area -->
+  <text x="720" y="172" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="54" font-weight="700" fill="#f0f0f0" letter-spacing="2">Cloud Del Norte</text>
+  <text x="720" y="202" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="500" fill="#d7c7ee" letter-spacing="3">AWS User Group  •  El Paso Borderplex</text>
+  <rect x="660" y="218" width="120" height="1.5" fill="#9060f0" opacity="0.8"/>
+  <text x="720" y="238" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="rgba(215,199,238,0.9)">Community builders • Workshops • Cloud • AI/ML</text>
+  <!-- CTA pill — aws orange -->
+  <g transform="translate(1080,285)">
+    <rect x="0" y="0" width="200" height="34" rx="17" fill="#ff9900"/>
+    <text x="100" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#1a1a1a">View Builders →</text>
+  </g>
+  <text x="1180" y="332" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="rgba(255,255,255,0.55)">builder.aws.com/community  •  Dark: el-paso-nights  •  Light: gypsum-sands #ede5d4</text>
+  <!-- small safe indicator -->
+  <text x="121" y="14" font-family="system-ui" font-size="7" fill="rgba(255,255,255,0.35)">safe 1200×400</text>
+  <text x="1318" y="14" text-anchor="end" font-family="system-ui" font-size="7" fill="rgba(255,255,255,0.35)">1440×400 master</text>
+</svg>
